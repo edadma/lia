@@ -1,0 +1,396 @@
+package math;
+
+import java.math.*;
+import util.*;
+
+
+public final class AP
+{
+	private AP() {}
+
+	/**
+	The <CODE>BigDecimal</CODE> constant zero.
+	*/
+	public static final BigDecimal ZERO = decimal( 0 );
+
+	/**
+	The <CODE>BigDecimal</CODE> constant one.
+	*/
+	public static final BigDecimal ONE = decimal( 1 );
+
+	/**
+	The <CODE>BigDecimal</CODE> constant two.
+	*/
+	public static final BigDecimal TWO = decimal( 2 );
+
+	private static final BigDecimal QUARTER = new BigDecimal( "0.25" );
+	private static final BigDecimal FOUR = decimal( 4 );
+	private static final BigDecimal NEG_ONE = decimal( -1 );
+	
+	public static BigDecimal
+	floor( BigDecimal a )
+	{
+		return a.setScale( 0, BigDecimal.ROUND_FLOOR );
+	}
+
+	public static BigDecimal
+	ceil( BigDecimal a )
+	{
+		return a.setScale( 0, BigDecimal.ROUND_CEILING );
+	}
+
+	public static BigDecimal
+	round( BigDecimal a )
+	{
+		return a.setScale( 0, BigDecimal.ROUND_HALF_UP );
+	}
+
+	public static BigDecimal
+	trunc( BigDecimal a )
+	{
+		return a.setScale( 0, BigDecimal.ROUND_DOWN );
+	}
+
+	public static BigDecimal
+	fixup( BigDecimal a, MathContext mc )
+	{
+		return a.round( mc ).stripTrailingZeros();
+	}
+	
+	public static BigDecimal
+	exp( BigDecimal a, MathContext mc )
+	{
+	BigDecimal x_ = a;
+	BigDecimal result = x_.add( ONE, mc );
+	BigDecimal n = x_;
+	BigInteger d = BigInteger.ONE;
+	BigDecimal term = x_;
+
+		for (int i = 2; term.scale() < term.precision()*2; i++)
+		{
+			n = n.multiply( x_, mc );
+			d = d.multiply( integer(i) );
+			term = n.divide( new BigDecimal(d), mc );
+			result = result.add( term, mc );
+		}
+		
+		return result;
+	}
+
+	public static BigDecimal
+	log( BigDecimal a, MathContext mc )
+	{
+	BigDecimal result = ZERO;
+	BigDecimal xm1 = a.subtract( ONE );
+	BigDecimal xp1 = a.add( ONE );
+	BigDecimal xm2 = xm1.multiply( xm1, mc );
+	BigDecimal xp2 = xp1.multiply( xp1, mc );
+	BigDecimal n = xm1;
+	BigDecimal d = xp1;
+	BigDecimal term = xm1.divide( xp1, mc );
+
+		for (int i = 3; term.scale() < term.precision()*2; i += 2)
+		{
+			result = result.add( term );
+			n = n.multiply( xm2, mc );
+			d = d.multiply( xp2, mc );
+			term = n.divide( d.multiply(decimal(i), mc), mc );
+		}
+		return result.multiply( TWO, mc );
+	}
+
+	public static BigDecimal
+	log( BigDecimal b, BigDecimal x, MathContext mc )
+	{
+		return log(x, mc).divide( log(b, mc), mc );
+	}
+	
+	public static BigDecimal
+	pow( BigDecimal x, BigDecimal y, MathContext mc )
+	{
+		return exp( y.multiply(log(x, mc), mc), mc );
+	}
+
+	public static BigDecimal
+	pow( double x, BigDecimal y, MathContext mc )
+	{
+		return exp( y.multiply(new BigDecimal(Math.log(x))), mc );
+	}
+
+	public static BigDecimal
+	pow( BigDecimal x, double y, MathContext mc )
+	{
+		return exp( new BigDecimal(y).multiply(log(x, mc)), mc );
+	}
+
+	/**
+	Computes the value of Euler's constant, <I>e</I>, to the required precision.
+	*/
+	public static BigDecimal
+	e( MathContext mc )
+	{
+	BigDecimal result = ZERO;
+	BigDecimal term = TWO;
+	BigInteger d = BigInteger.ONE;
+
+		for (int i = 2; term.scale() < term.precision()*2; i++)
+		{
+			result = result.add( term, mc );
+			term = inv( new BigDecimal(d = d.multiply(integer(i))), mc );
+		}
+		
+		return result;
+	}
+
+	/**
+	Computes the value of <FONT FACE="symbol">p</FONT> to the required precision, using the fast
+	converging Gauss-Legendre algorithm which requires only
+	nineteen iterations to compute <FONT FACE="symbol">p</FONT> to one million places.
+	*/
+	public static BigDecimal
+	pi( MathContext mc )
+	{
+	BigDecimal a = ONE;
+	BigDecimal b = inv( sqrt(TWO, mc), mc );
+	BigDecimal t = QUARTER;
+	int x = 1;
+	BigDecimal apb;
+
+		for (int i = 0; !a.equals( b ); i++)
+		{
+		BigDecimal y = a;
+		BigDecimal yma;
+
+			a = a.add( b ).divide( TWO, mc );
+			b = sqrt( b.multiply(y), mc );
+			yma = y.subtract( a );
+			t = t.subtract( decimal(x).multiply(xx(yma, mc)) );
+			x <<= 1;
+		}
+		apb = a.add( b );
+		return xx( apb, mc ).divide( FOUR.multiply(t), mc );
+	}
+
+	/**
+	Computes the square root to the currently set precision.
+	*/
+	public static BigDecimal
+	sqrt( BigDecimal x, MathContext mc )
+	{
+	BigDecimal new_guess = x.divide( TWO, mc );
+	BigDecimal current_guess = x;
+
+		for (int i = 0; !current_guess.equals( new_guess ); i++)
+		{
+			current_guess = new_guess;
+			new_guess = current_guess.add(x.divide(current_guess, mc)).divide( TWO, mc );
+		}
+		return new_guess;
+	}
+
+	public static BigDecimal
+	sin( BigDecimal a, MathContext mc )
+	{
+	BigDecimal term = a;
+	BigDecimal xx = xx( term, mc );
+	BigDecimal n = term;
+	BigInteger d = BigInteger.ONE;
+	BigDecimal result = ZERO;
+
+		for (int i = 3; term.scale() < term.precision()*2; i += 2)
+		{
+			if ((i&2) == 0)
+				result = result.subtract( term, mc );
+			else
+				result = result.add( term, mc );
+			n = n.multiply( xx, mc );
+			d = d.multiply( integer(i-1) ).multiply( integer(i) );
+			term = n.divide( new BigDecimal(d), mc );
+		}
+		
+//		if (result.compareTo( ONE ) > 0)
+//			return ONE;
+//		else if (result.compareTo( NEG_ONE ) < 0)
+//			return NEG_ONE;
+		
+		return result;
+	}
+
+	public static BigDecimal
+	cos( BigDecimal a, MathContext mc )
+	{
+	BigDecimal term = ONE;
+	BigDecimal n = ONE;
+	BigInteger d = BigInteger.ONE;
+	BigDecimal xx = xx( a, mc );
+	BigDecimal result = ZERO;
+
+		for (int i = 2; term.scale() < term.precision()*2; i += 2)
+		{
+			if ((i&2) == 0)
+				result = result.subtract( term, mc );
+			else
+				result = result.add( term, mc );
+			n = n.multiply( xx, mc );
+			d = d.multiply( integer(i-1) ).multiply( integer(i) );
+			term = n.divide( new BigDecimal(d), mc );
+		}
+	
+//		if (result.compareTo( ONE ) > 0)
+//			return ONE;
+//		else if (result.compareTo( NEG_ONE ) < 0)
+//			return NEG_ONE;
+	
+		return result;
+	}
+
+	public static BigDecimal
+	tan( BigDecimal a, MathContext mc )
+	{
+		return sqrt( inv(xx(cos(a, mc), mc), mc).subtract(ONE), mc );
+	}
+
+	/**
+	Computes the arc cosine to the currently set precision.  The algorithm used was transcribed from the Burroughs Extended ALGOL equivalent in ALGORITHM 206 - ARCCOSSIN - Japan Atomic Energy Research Institute, Tokai, Ibaraki, Japan - COLLECTED ALGORITHMS FROM CACM - *can be made more efficient by using only one extra place when dividing by 2*
+	*//*
+	public static BigDecimal
+	acos( BigDecimal a )
+	{
+	BigDecimal a_ = ZERO;
+	BigDecimal x1 = a;
+	BigDecimal halves = ONE;
+
+		if (a.abs().compareTo( ONE ) > 0)
+			throw new IllegalArgumentException( "acos() argument may not exceed one" );
+		while ((halves = div( halves, TWO )).compareTo( ZERO ) != 0)
+		{
+			if (x1.signum() < 0)
+			{
+				x1 = ONE.subtract( TWO.multiply(xx(x1)) );
+				a_ = a_.add( halves );
+			}
+			else
+				x1 = TWO.multiply( xx(x1) ).subtract( ONE );
+		}
+		return clip( pi().multiply(a_) );
+	}
+
+	public static BigDecimal
+	asin( BigDecimal a, MathContext mc )
+	{
+		if (a.abs().compareTo( ONE ) > 0)
+			throw new IllegalArgumentException( "asin() argument may not exceed one" );
+		return div(pi(), TWO).subtract( acos(a) );
+	}
+
+	public static BigDecimal
+	atan2( BigDecimal a, BigDecimal b, MathContext mc )
+	{
+		return atan( a.divide(b), mc );
+	}
+
+	public static BigDecimal
+	atan( BigDecimal a )
+	{
+		return acos( inv(sqrt(xx(a).add( ONE ))) );
+	}
+*/
+//	public static BigDecimal
+//	sinh( BigDecimal a )
+//	{
+//		return div( exp(a).subtract(exp(a.negate())), TWO );
+//	}
+//
+//	public static BigDecimal
+//	cosh( BigDecimal a )
+//	{
+//		return div( exp(a).add(exp(a.negate())), TWO );
+//	}
+//
+//	public static BigDecimal
+//	tanh( BigDecimal a )
+//	{
+//	BigDecimal expa = exp( a );
+//	BigDecimal expna = exp( a.negate() );
+//
+//		return div( expa.subtract(expna), expa.add(expna) );
+//	}
+//
+//	public static BigDecimal
+//	asinh( BigDecimal a )
+//	{
+//		return log( a.add(sqrt(xx(a).add(ONE))) );
+//	}
+//
+//	public static BigDecimal
+//	acosh( BigDecimal a )
+//	{
+//		return log( a.add(sqrt(xx(a).subtract(ONE))) );
+//	}
+//
+//	public static BigDecimal
+//	atanh( BigDecimal a )
+//	{
+//		return div( log(div(ONE.add(a), ONE.subtract(a))), TWO );
+//	}
+
+	public static BigDecimal
+	xx( BigDecimal a, MathContext mc )
+	{
+		return a.multiply( a, mc );
+	}
+
+	public static BigDecimal
+	inv( BigDecimal a, MathContext mc )
+	{
+		return ONE.divide( a, mc );
+	}
+
+//	public static String
+//	toString( BigDecimal a )
+//	{
+//	String result;
+//	int index;
+//	int end;
+//
+//		if (a.scale() < scale)
+//			result = a.toString();
+//		else
+//			result = a.setScale( scale-extra, BigDecimal.ROUND_HALF_UP ).toString();
+//		if ((index = result.indexOf( '.' )) > -1)
+//		{
+//			index += 2;
+//			for (end = result.length(); end > index; end--)
+//				if (result.charAt( end-1 ) != '0')
+//					break;
+//			if (end < result.length())
+//				return result.substring( 0, end );
+//		}
+//		return result;
+//	}
+
+	private static BigInteger
+	integer( long n )
+	{
+		return BigInteger.valueOf( n );
+	}
+
+	public static BigDecimal
+	decimal( long n )
+	{
+		return BigDecimal.valueOf( n );
+	}
+	
+	public static void
+	main( String[] args )
+	{
+	MathContext mce = new MathContext( 1000, RoundingMode.HALF_EVEN );
+	MathContext mc = new MathContext( mce.getPrecision()+4, RoundingMode.HALF_EVEN );
+	
+//		P.rint( fixup(xx(sqrt(TWO, mci), mci), mce) );
+//		P.rint( fixup(sin(pi(mci).divide(TWO, mci), mci), mce) );
+//		P.rint( fixup(xx(cos(TWO, mci), mci).add(xx(sin(TWO, mci), mci)), mce) );
+//		P.rint( tan(ONE, mc) + " " + Math.tan(1) );
+		P.rint( fixup(pi(mc), mce) );
+	}
+}

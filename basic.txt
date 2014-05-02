@@ -1,0 +1,51 @@
+// 	lia.operation( '+,
+// 		LIA.binary(
+// 			"Integer" -> (_.intValue + _.intValue),
+// 			"Double" -> (_.doubleValue + _.doubleValue) ) )
+// 	lia.operation( '-,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue - b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue - b.doubleValue) ) ++
+// 		LIA.unary(
+// 			"Integer" -> (-_.intValue),
+// 			"Double" -> (-_.doubleValue) ) )
+// 	lia.operation( '*,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue * b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue * b.doubleValue) ) )
+// 	lia.operation( '/,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue / b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue) ) )
+// 	lia.operation( '^,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => pow(a.doubleValue, b.doubleValue).toInt),
+// 			"Double" -> (((a: Number), (b: Number)) => pow(a.doubleValue, b.doubleValue)) ) )
+// 	lia.operation( '>,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue > b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue > b.doubleValue) ) )
+// 	lia.operation( '<,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue < b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue < b.doubleValue) ) )
+// 	lia.operation( '>=,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue >= b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue >= b.doubleValue) ) )
+// 	lia.operation( '<=,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue <= b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue <= b.doubleValue) ) )
+// 	lia.operation( '=,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue == b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue == b.doubleValue) ) )
+// 	lia.operation( '/=,
+// 		LIA.binary(
+// 			"Integer" -> (((a: Number), (b: Number)) => a.intValue != b.intValue),
+// 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue != b.doubleValue) ) )
+// 	lia.operation( 'sqrt,
+// 		LIA.unary(
+// 			"Integer" -> ((a: Number) => sqrt( a.doubleValue )),
+// 			"Double" -> ((a: Number) => sqrt( a.doubleValue )) ) )
