@@ -364,7 +364,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	{
 	val res = BigDecimal( s, mc )
 	
-		if (res.isValidDouble)
+		if (res.isExactDouble)//isValidDouble)
 			res.toDouble
 		else
 			res
