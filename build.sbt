@@ -1,6 +1,6 @@
 name := "LIA"
 
-version := "0.1-SNAPSHOT"
+version := "0.2-SNAPSHOT"
 
 scalaVersion := "2.11.0"
 
@@ -31,7 +31,7 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-licenses := Seq("GPL" -> url("http://opensource.org/licenses/GPL-3.0"))
+licenses := Seq("LGPL" -> url("http://opensource.org/licenses/LGPL-3.0"))
 
 homepage := Some(url("https://github.com/FunL/lia"))
 

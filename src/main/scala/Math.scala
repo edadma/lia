@@ -1,3 +1,10 @@
+/*     ______            __                                      *\
+**    / ____/_  __ ___  / /     FunL Programming Language        **
+**   / __/ / / / / __ \/ /      (c) 2014, Edward A. Maxedon, Sr. **
+**  / /   / /_/ / / / / /__     http://funl-lang.org/            **
+** /_/    \____/_/ /_/____/                                      **
+\*                                                               */
+
 package funl.lia
 
 import java.{lang => boxed}
@@ -62,6 +69,10 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) / toBigDecimal(b)),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) / toComplexDecimal(b)) ) )
+	operation( '%,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue % b.longValue )),
+			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) % toBigInt(b) )) ) )
 	operation( Symbol("\\"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue / b.longValue )),
