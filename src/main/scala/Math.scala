@@ -168,62 +168,51 @@ object Math extends LIA
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) != toComplexDecimal(b)) ) )
 	
-// 	def sqrt( n: Number ): Number =
-// 		n match
-// 		{
-// 			case a: boxed.Integer =>
-// 				{
-// 				val n = ab( a )
-// 				val dr = sqr( n.toDouble )
-// 				val ir = rnd(dr).toInt
-// 
-// 					if (ir*ir == n)
-// 						if (a < 0) new ComplexDouble( 0, ir ) else ir
-// 					else
-// 						if (a < 0) new ComplexDouble( 0, dr ) else dr
-// 				}
-// // 			"Long" -> ((a: Number) =>
-// // 				{
-// // 				val n = a.asInstanceOf[Long]
-// // 				val dr = sqrt( bigDecimal(n) )
-// // 				val ir = round(dr).toLong
-// // 				
-// // 					if (ir*ir == n)
-// // 						maybeDemote( ir )
-// // 					else
-// // 						dr
-// // 				}),
-// 			case a: BigInt =>
-// 				{
-// 					bisqrt( a.abs ) match
-// 					{
-// 						case Left( ir ) => if (a < 0) new ComplexDecimal( 0, bigDecimal(ir), this ) else maybeDemote( ir )
-// 						case Right( dr ) => if (a < 0) new ComplexDecimal( 0, dr, this ) else dr
-// 					}
-// 				}
-// 			case a: lia.Rational =>
-// 				{
-// 				val ar = a.abs
-// 				
-// 					def rsqrt = if (a < 0) new ComplexDecimal( 0, sqrt( ar.decimalValue(Math) ), this ) else sqrt( ar.decimalValue(Math) )
-// 					
-// 					bisqrt( ar.n ) match
-// 					{
-// 						case Left( irn ) =>
-// 							bisqrt( ar.d ) match
-// 							{
-// 								case Left( ird ) =>
-// 									val res = Rational( irn, ird )
-// 									
-// 									if (a < 0) new ComplexDecimal( 0, bigDecimal(res), this ) else res
-// 								case _ => rsqrt
-// 							}
-// 						case _ => rsqrt
-// 					}
-// 				}
-// 			case a: boxed.Double => if (a < 0) new ComplexDouble( 0, sqr(a) ) else sqr( a )
-// 			case a: BigDecimal => if (a < 0) new ComplexDecimal( 0, sqrt(a), this ) else sqrt( a )
-// 			case a: ComplexDouble => a.sqrt
-// 			case a: ComplexDecimal => a.sqrt
-// 		}
+	def squareRoot( n: Number ): Number =
+		n match
+		{
+			case a: boxed.Integer =>
+				{
+				val n = ab( a )
+				val dr = sqr( n.toDouble )
+				val ir = rnd(dr).toInt
+
+					if (ir*ir == n)
+						if (a < 0) new ComplexDouble( 0, ir ) else new boxed.Integer( ir )
+					else
+						if (a < 0) new ComplexDouble( 0, dr ) else new boxed.Double( dr )
+				}
+			case a: BigInt =>
+				{
+					bisqrt( a.abs ) match
+					{
+						case Left( ir ) => if (a < 0) new ComplexDecimal( 0, bigDecimal(ir), this ) else maybeDemote( ir )
+						case Right( dr ) => if (a < 0) new ComplexDecimal( 0, dr, this ) else dr
+					}
+				}
+			case a: funl.lia.Rational =>
+				{
+				val ar = a.abs
+
+					def rsqrt = if (a < 0) new ComplexDecimal( 0, sqrt( ar.decimalValue(Math) ), this ) else sqrt( ar.decimalValue(Math) )
+
+					bisqrt( ar.n ) match
+					{
+						case Left( irn ) =>
+							bisqrt( ar.d ) match
+							{
+								case Left( ird ) =>
+									val res = Rational( irn, ird )
+
+									if (a < 0) new ComplexDecimal( 0, bigDecimal(res), this ) else res
+								case _ => rsqrt
+							}
+						case _ => rsqrt
+					}
+				}
+			case a: boxed.Double => if (a < 0) new ComplexDouble( 0, sqr(-a) ) else new boxed.Double( sqr(a) )
+			case a: BigDecimal => if (a < 0) new ComplexDecimal( 0, sqrt(-a), this ) else sqrt( a )
+			case a: ComplexDouble => a.sqrt
+			case a: ComplexDecimal => a.sqrt
+		}
 }

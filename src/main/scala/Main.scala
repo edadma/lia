@@ -4,50 +4,7 @@ import math._
 
 
 object Main extends App
-{
-	def agm( x: Double, y: Double ) =
-	{
-		def am( a: Double, b: Double ) = (a + b)/2
-		
-		def gm( a: Double, b: Double ) = sqrt( a*b )
-	
-		def recur( an: Double, gn: Double ): Double =
-		{
-		val anp1 = am( an, gn )
-		val gnp1 = gm( an, gn )
-		
-//			if ((anp1 - gnp1).abs < 1e-16)
-			if (anp1 == gnp1)
-				anp1
-			else
-				recur( anp1, gnp1 )
-		}
-		
-		recur( am(x, y), gm(x, y) )
-	}
-	
-	// sum( k >= 1, 1/(k*(2^k)) )
-	def ln2 =
-	{
-	var res = 0.0
-	var p3 = 3L
-	var p4 = 4L
-	var term = 1.0/3 + 1.0/4
-	var k = 1
-	
-		while (term >= 1e-16)
-		{
-			res += term
-			p3 *= 3
-			p4 *= 4
-			k += 1
-			term = (1.0/p3 + 1.0/p4)/k
-			println( res, term )
-		}
-		
-		res
-	}
-	
+{	
 	def time( action: => Unit )
 	{
 	val start = compat.Platform.currentTime
@@ -56,20 +13,65 @@ object Main extends App
 		println( "time: " + (compat.Platform.currentTime - start) )
 	}
 	
-	val x = Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v
-	
-	System.gc
-	System.gc
-	
-	time( println( Math.ln(1) ) )
+// 	val x = Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v*Math.E.v
+// 	
+// 	System.gc
+// 	System.gc
+// 	
+// 	time( println( Math.ln(1) ) )
+// 
+// 	System.gc
+// 	System.gc
+// 
+// 	time( println( Math.ln(1) ) )
+// 	time( println( Math.ln(x) ) )
+// 	time( println( Math.ln(1.1), log(1.1) ) )
 
-	System.gc
-	System.gc
-
-	time( println( Math.ln(1) ) )
-	time( println( Math.ln(x) ) )
-	time( println( Math.ln(1.1), log(1.1) ) )
+	println( Math.squareRoot(-2.0) )
 }
+
+// 	def agm( x: Double, y: Double ) =
+// 	{
+// 		def am( a: Double, b: Double ) = (a + b)/2
+//
+// 		def gm( a: Double, b: Double ) = sqrt( a*b )
+//
+// 		def recur( an: Double, gn: Double ): Double =
+// 		{
+// 		val anp1 = am( an, gn )
+// 		val gnp1 = gm( an, gn )
+//
+// //			if ((anp1 - gnp1).abs < 1e-16)
+// 			if (anp1 == gnp1)
+// 				anp1
+// 			else
+// 				recur( anp1, gnp1 )
+// 		}
+//
+// 		recur( am(x, y), gm(x, y) )
+// 	}
+//
+// 	// sum( k >= 1, 1/(k*(2^k)) )
+// 	def ln2 =
+// 	{
+// 	var res = 0.0
+// 	var p3 = 3L
+// 	var p4 = 4L
+// 	var term = 1.0/3 + 1.0/4
+// 	var k = 1
+//
+// 		while (term >= 1e-16)
+// 		{
+// 			res += term
+// 			p3 *= 3
+// 			p4 *= 4
+// 			k += 1
+// 			term = (1.0/p3 + 1.0/p4)/k
+// 			println( res, term )
+// 		}
+//
+// 		res
+// 	}
 
 // object Main extends App
 // {
