@@ -1,8 +1,8 @@
 name := "LIA"
 
-version := "0.3-SNAPSHOT"
+version := "0.4-SNAPSHOT"
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.11.1"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 

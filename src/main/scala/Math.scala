@@ -77,6 +77,14 @@ object Math extends LIA
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue / b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) / toBigInt(b) )) ) )
+	operation( '|,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue == 0),
+			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) == 0) ) )
+	operation( '/|,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue != 0),
+			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) != 0) ) )
 	operation( '^,
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) =>
