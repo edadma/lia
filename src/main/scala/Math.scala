@@ -166,7 +166,7 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) == toBigDecimal(b)),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) == toComplexDecimal(b)) ) )
-	operation( '/=,
+	operation( '!=,
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a != b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) != toBigInt(b)),
