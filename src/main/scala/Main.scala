@@ -27,7 +27,7 @@ object Main extends App
 // 	time( println( Math.ln(x) ) )
 // 	time( println( Math.ln(1.1), log(1.1) ) )
 
-	println( Math.squareRoot(-2.0) )
+	println( Math.absNumber(BigInt(-Int.MinValue)).getClass )
 }
 
 // 	def agm( x: Double, y: Double ) =

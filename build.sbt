@@ -1,6 +1,6 @@
 name := "LIA"
 
-version := "0.5-SNAPSHOT"
+version := "0.7-SNAPSHOT"
 
 scalaVersion := "2.11.1"
 

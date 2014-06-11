@@ -85,6 +85,18 @@ object Math extends LIA
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue != 0),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) != 0) ) )
+	operation( 'or,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => b.intValue|a.intValue),
+			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a)|toBigInt(b)) ) )
+	operation( 'xor,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => b.intValue^a.intValue),
+			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a)^toBigInt(b) )) ) )
+	operation( 'and,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => b.intValue&a.intValue),
+			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a)&toBigInt(b) )) ) )
 	operation( '^,
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) =>
@@ -176,7 +188,7 @@ object Math extends LIA
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) != toComplexDecimal(b)) ) )
 	
-	def squareRoot( n: Number ): Number =
+	def sqrtNumber( n: Number ): Number =
 		n match
 		{
 			case a: boxed.Integer =>
@@ -222,5 +234,17 @@ object Math extends LIA
 			case a: BigDecimal => if (a < 0) new ComplexDecimal( 0, sqrt(-a), this ) else sqrt( a )
 			case a: ComplexDouble => a.sqrt
 			case a: ComplexDecimal => a.sqrt
+		}
+
+	def absNumber( n: Number ): Number =
+		n match
+		{
+			case a: boxed.Integer => maybePromote( ab(a.longValue) )
+			case a: BigInt => maybeDemote( a.abs )
+			case a: funl.lia.Rational => a.abs
+			case a: boxed.Double => new boxed.Double( ab(a) )
+			case a: BigDecimal => a.abs
+			case a: ComplexDouble => new boxed.Double( a.abs )
+			case a: ComplexDecimal => a.abs
 		}
 }

@@ -174,9 +174,9 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 		Math( '/|, BigInt(5), 11 ) shouldBe true
 		Math( '/|, 5, 11 ) shouldBe true
 		
-// 		Math( 'sqrt, 3 ) shouldBe sqr( 3 )
-// 		Math( 'sqrt, 4 ) should (be (2) and be (a [jl.Integer]))
-// 		Math( 'sqrt, -4 ) shouldBe 2.i
+// 		Math.sqrtNumber( 3 ) shouldBe sqr( 3 )
+// 		Math.sqrtNumber( 4 ) should (be (2) and be (a [jl.Integer]))
+// 		Math.sqrtNumber( -4 ) shouldBe 2.i
 // // 		Math( 'sqrt, 3L ) shouldBe Math.sqrt( 3 )
 // // 		Math( 'sqrt, 4L ) should (be (2) and be (a [jl.Integer]))
 // 		Math( 'sqrt, BigDecimal(3) ) shouldBe Math.sqrt( 3 )
