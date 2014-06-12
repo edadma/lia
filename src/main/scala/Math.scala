@@ -85,6 +85,10 @@ object Math extends LIA
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue != 0),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) != 0) ) )
+	operation( 'not,
+		unary(
+			"Integer" -> ((a: Number) => ~a.intValue),
+			"BigInt" -> ((a: Number) => ~toBigInt(a)) ) )
 	operation( 'or,
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue|a.intValue),
