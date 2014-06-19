@@ -235,7 +235,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	
 	def pow( x: BigDecimal, y: Double ) = exp( bigDecimal(y)*ln(x) )
 	
-	def sin( a: BigDecimal ) =
+	def sinBigDecimal( a: BigDecimal ) =
 	{
 	var term = a
 	val x2 = xx( a )
@@ -265,7 +265,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		result.round( mc )
 	}
 	
-	def cos( a: BigDecimal ) =
+	def cosBigDecimal( a: BigDecimal ) =
 	{
 	var term = ONE.v
 	val x2 = xx( a )
@@ -295,7 +295,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		result.round( mc )
 	}
 
-	def acos( a: BigDecimal ) =
+	def acosBigDecimal( a: BigDecimal ) =
 	{
 	var a_ = ZERO.v
 	var x1 = a
@@ -315,7 +315,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		(Pi.v*a_).round( mc )
 	}
 
-	def atan( a: BigDecimal ) = a.signum*acos( inv(sqrt(xx(a) + ONE.v)) )
+	def atan( a: BigDecimal ) = a.signum*acosBigDecimal( inv(sqrt(xx(a) + ONE.v)) )
 
 	def atan2( y: BigDecimal, x: BigDecimal ) =
 		if (x > 0)

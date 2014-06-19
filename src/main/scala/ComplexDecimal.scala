@@ -20,7 +20,7 @@ class ComplexDecimal( val a: BigDecimal, val b: BigDecimal, private[lia] val m: 
 
 	lazy val ln = new ComplexDecimal( m.ln(abs), arg, m )
 	
-	lazy val exp = m.exp(a)*new ComplexDecimal(m.cos(b), m.sin(b), m)
+	lazy val exp = m.exp(a)*new ComplexDecimal(m.cosBigDecimal(b), m.sinBigDecimal(b), m)
 	
 	lazy val sin = ((this*m.I.v).exp - (-this*m.I.v).exp)/2/m.I.v
 	

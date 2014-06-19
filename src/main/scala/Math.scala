@@ -192,7 +192,7 @@ object Math extends LIA
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) != toComplexDecimal(b)) ) )
 	
-	def sqrtNumber( n: Number ): Number =
+	def sqrtFunction( n: Number ): Number =
 		n match
 		{
 			case a: boxed.Integer =>
@@ -240,7 +240,7 @@ object Math extends LIA
 			case a: ComplexDecimal => a.sqrt
 		}
 
-	def absNumber( n: Number ): Number =
+	def absFunction( n: Number ): Number =
 		n match
 		{
 			case a: boxed.Integer => maybePromote( ab(a.longValue) )
@@ -250,5 +250,53 @@ object Math extends LIA
 			case a: BigDecimal => a.abs
 			case a: ComplexDouble => new boxed.Double( a.abs )
 			case a: ComplexDecimal => a.abs
+		}
+
+	def cosFunction( n: Number ): Number =
+		n match
+		{
+			case a: boxed.Integer => cos( a.doubleValue ).asInstanceOf[boxed.Double]
+			case a: BigInt => cosBigDecimal( bigDecimal(a) )
+			case a: funl.lia.Rational => cosBigDecimal( bigDecimal(a) )
+			case a: boxed.Double => new boxed.Double( cos(a) )
+			case a: BigDecimal => cosBigDecimal( a )
+			case a: ComplexDouble => a.cos
+			case a: ComplexDecimal => a.cos
+		}
+
+	def sinFunction( n: Number ): Number =
+		n match
+		{
+			case a: boxed.Integer => sin( a.doubleValue ).asInstanceOf[boxed.Double]
+			case a: BigInt => sinBigDecimal( bigDecimal(a) )
+			case a: funl.lia.Rational => sinBigDecimal( bigDecimal(a) )
+			case a: boxed.Double => new boxed.Double( sin(a) )
+			case a: BigDecimal => sinBigDecimal( a )
+			case a: ComplexDouble => a.sin
+			case a: ComplexDecimal => a.sin
+		}
+
+	def acosFunction( n: Number ): Number =
+		n match
+		{
+			case a: boxed.Integer => acos( a.doubleValue ).asInstanceOf[boxed.Double]
+			case a: BigInt => acosBigDecimal( bigDecimal(a) )
+			case a: funl.lia.Rational => acosBigDecimal( bigDecimal(a) )
+			case a: boxed.Double => new boxed.Double( acos(a) )
+			case a: BigDecimal => acosBigDecimal( a )
+			case a: ComplexDouble => a.acos
+			case a: ComplexDecimal => a.acos
+		}
+
+	def asinFunction( n: Number ): Number =
+		n match
+		{
+			case a: boxed.Integer => asin( a.doubleValue ).asInstanceOf[boxed.Double]
+//			case a: BigInt => asinBigDecimal( bigDecimal(a) )
+//			case a: funl.lia.Rational => asinBigDecimal( bigDecimal(a) )
+			case a: boxed.Double => new boxed.Double( asin(a) )
+//			case a: BigDecimal => asinBigDecimal( a )
+			case a: ComplexDouble => a.asin
+			case a: ComplexDecimal => a.asin
 		}
 }
