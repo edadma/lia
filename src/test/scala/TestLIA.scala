@@ -158,7 +158,7 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 		Math( '+, BigDecimal(1.5), 2 ) should (be (3.5) and be (a [BigDecimal]))
 		Math( '+, BigInt(1), 2 ) should (be (3) and be (a [jl.Integer]))
 		Math( '+, BigInt(1), BigInt(2) ) should (be (3) and be (a [jl.Integer]))
-		Math( '+, BigInt(1), 2.5 ) should (be (3.5) and be (a [BigDecimal]))
+		Math( '+, BigInt(1), 2.5 ) shouldBe 3.5
 		Math( '^, -1.0, .5 ) shouldBe 1.i
 		Math( '^, 3, -4 ) shouldBe (1 over 81)
 		Math( '^, BigInt(3), -4 ) shouldBe (1 over 81)
@@ -182,6 +182,8 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
     Math.sqrtFunction( 3 ) shouldBe sqr( 3 )
 		Math.sqrtFunction( 4 ) should (be (2) and be (a [jl.Integer]))
     Math.sqrtFunction( -4 ) shouldBe 2.i
+    Math.sqrtFunction( BigInt(4) ) should (be (2) and be (a [jl.Integer]))
+    Math.sqrtFunction( BigInt("100000000000000000000") ) shouldBe BigInt("10000000000")
 // //     Math( 'sqrt, 3L ) shouldBe Math.sqrt( 3 )
 // //     Math( 'sqrt, 4L ) should (be (2) and be (a [jl.Integer]))
 //    Math( 'sqrt, BigDecimal(3) ) shouldBe Math.sqrt( 3 )

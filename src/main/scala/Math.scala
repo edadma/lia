@@ -13,14 +13,14 @@ import math.{sqrt => sqr, round => rnd, abs => ab, _}
 
 object Math extends LIA
 {
-	special( ("BigInt", "Double") -> "BigDecimal" )
-	special( ("Double", "BigInt") -> "BigDecimal" )
-	special( ("funl.lia.Rational", "Double") -> "BigDecimal" )
-	special( ("Double", "funl.lia.Rational") -> "BigDecimal" )
-	special( ("BigInt", "ComplexDouble") -> "funl.lia.ComplexDecimal" )
-	special( ("ComplexDouble", "BigInt") -> "funl.lia.ComplexDecimal" )
-	special( ("funl.lia.Rational", "funl.lia.ComplexDouble") -> "funl.lia.ComplexDecimal" )
-	special( ("funl.lia.ComplexDouble", "funl.lia.Rational") -> "funl.lia.ComplexDecimal" )
+// 	special( ("BigInt", "Double") -> "BigDecimal" )
+// 	special( ("Double", "BigInt") -> "BigDecimal" )
+// 	special( ("funl.lia.Rational", "Double") -> "BigDecimal" )
+// 	special( ("Double", "funl.lia.Rational") -> "BigDecimal" )
+// 	special( ("BigInt", "ComplexDouble") -> "funl.lia.ComplexDecimal" )
+// 	special( ("ComplexDouble", "BigInt") -> "funl.lia.ComplexDecimal" )
+// 	special( ("funl.lia.Rational", "funl.lia.ComplexDouble") -> "funl.lia.ComplexDecimal" )
+// 	special( ("funl.lia.ComplexDouble", "funl.lia.Rational") -> "funl.lia.ComplexDecimal" )
 	operation( '+,
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue + b.longValue )),
@@ -68,6 +68,22 @@ object Math extends LIA
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue % b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) % toBigInt(b) )) ) )
+	operation( 'mod,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => maybePromote(
+				{
+				val m = b.longValue
+				
+					require( m >= 1, "modulus not positive" )
+					
+				val rem = a.longValue%m
+				
+					if (rem < 0)
+						rem + m
+					else
+						rem
+				} )),
+      "BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) mod toBigInt(b) )) ) )
 	operation( Symbol("\\"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue / b.longValue )),

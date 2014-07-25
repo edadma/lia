@@ -424,7 +424,6 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		{
 			case bi: BigInt => bi
 			case i: jl.Integer => BigInt( i )
-//			case l: jl.Long => BigInt( l )
 			case _ => sys.error( "can't convert from " + a )
 		}
 	
@@ -434,7 +433,6 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 			case r: Rational => r
 			case bi: BigInt => Rational( bi )
 			case i: jl.Integer => Rational( i )
-//			case l: jl.Long => Rational( l )
 			case _ => sys.error( "can't convert from " + a )
 		}
 
@@ -537,8 +535,6 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	
 	def apply( operation: Symbol, operands: Any* ) =
 	{
-	val refs = operands map (_.asInstanceOf[AnyRef])
-
-		operations( operation )( refs map (_.getClass) )( refs )
+		operations( operation )( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
 	}
 }
