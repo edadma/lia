@@ -8,7 +8,7 @@
 package funl.lia
 
 import java.{lang => boxed}
-import math.{sqrt => sqr, round => rnd, abs => ab, _}
+import math.{sqrt => sqr, round => rnd, abs => ab, exp => ex, _}
 
 
 object Math extends LIA
@@ -207,7 +207,7 @@ object Math extends LIA
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) != toComplexDecimal(b)) ) )
 	
-	def sqrtFunction( n: Number ): Number =
+	def sqrtFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer =>
@@ -255,7 +255,7 @@ object Math extends LIA
 			case a: ComplexDecimal => a.sqrt
 		}
 
-	def absFunction( n: Number ): Number =
+	def absFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer => maybePromote( ab(a.longValue) )
@@ -267,7 +267,7 @@ object Math extends LIA
 			case a: ComplexDecimal => a.abs
 		}
 
-	def cosFunction( n: Number ): Number =
+	def cosFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer => cos( a.doubleValue ).asInstanceOf[boxed.Double]
@@ -279,7 +279,7 @@ object Math extends LIA
 			case a: ComplexDecimal => a.cos
 		}
 
-	def sinFunction( n: Number ): Number =
+	def sinFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer => sin( a.doubleValue ).asInstanceOf[boxed.Double]
@@ -291,7 +291,7 @@ object Math extends LIA
 			case a: ComplexDecimal => a.sin
 		}
 
-	def acosFunction( n: Number ): Number =
+	def acosFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer => acos( a.doubleValue ).asInstanceOf[boxed.Double]
@@ -303,7 +303,7 @@ object Math extends LIA
 			case a: ComplexDecimal => a.acos
 		}
 
-	def asinFunction( n: Number ): Number =
+	def asinFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer => asin( a.doubleValue ).asInstanceOf[boxed.Double]
@@ -314,4 +314,16 @@ object Math extends LIA
 			case a: ComplexDouble => a.asin
 			case a: ComplexDecimal => a.asin
 		}
+
+  def expFunction( n: Any ): Number =
+    n match
+    {
+      case a: boxed.Integer => ex( a.doubleValue ).asInstanceOf[boxed.Double]
+ //     case a: BigInt => expBigDecimal( bigDecimal(a) )
+      case a: funl.lia.Rational => ex( a.doubleValue ).asInstanceOf[boxed.Double]
+      case a: boxed.Double => new boxed.Double( ex(a) )
+      case a: BigDecimal => expBigDecimal( a )
+      case a: ComplexDouble => a.exp
+      case a: ComplexDecimal => a.exp
+    }
 }

@@ -184,7 +184,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		result.round( mc )
 	}
 	
-	def exp( a: BigDecimal ) =
+	def expBigDecimal( a: BigDecimal ) =
 	{
 	val x_ = a
 	var result = x_ + ONE.v
@@ -231,9 +231,9 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 
 	def log( b: BigDecimal, x: BigDecimal ) = ln(x)/ln(b)
 	
-	def pow( x: BigDecimal, y: BigDecimal ) = exp( y*ln(x) )
+	def pow( x: BigDecimal, y: BigDecimal ) = expBigDecimal( y*ln(x) )
 	
-	def pow( x: BigDecimal, y: Double ) = exp( bigDecimal(y)*ln(x) )
+	def pow( x: BigDecimal, y: Double ) = expBigDecimal( bigDecimal(y)*ln(x) )
 	
 	def sinBigDecimal( a: BigDecimal ) =
 	{
