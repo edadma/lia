@@ -1,6 +1,6 @@
 name := "LIA"
 
-version := "0.11-SNAPSHOT"
+version := "0.11"
 
 scalaVersion := "2.11.2"
 
@@ -19,13 +19,15 @@ libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
 
 publishMavenStyle := true
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/maven2" ) )
+
+//{
+//  val nexus = "https://oss.sonatype.org/"
+//  if (isSnapshot.value)
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
+//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+//}
 
 publishArtifact in Test := false
 
