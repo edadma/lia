@@ -8,7 +8,7 @@
 package funl.lia
 
 import java.{lang => boxed}
-import math.{sqrt => sqr, round => rnd, abs => ab, exp => ex, _}
+import math.{sqrt => sqr, round => rnd, abs => ab, exp => ex, pow => po, _}
 
 
 object Math extends LIA
@@ -146,7 +146,7 @@ object Math extends LIA
 				{
 					case bi: boxed.Integer => (a.asInstanceOf[Rational] ^ bi).maybeDemote
 					case bbi: BigInt => (a.asInstanceOf[Rational] ^ bbi).maybeDemote
-					case br: Rational => pow( toBigDecimal(a), bigDecimal(br) )
+					case br: Rational => po( a.doubleValue, br.doubleValue )
 				} ),
 			"Double" -> (((a: Number), (b: Number)) =>
 				{
