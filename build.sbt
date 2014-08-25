@@ -19,7 +19,7 @@ libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
 
 publishMavenStyle := true
 
-publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/maven2" ) )
+publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
 
 //{
 //  val nexus = "https://oss.sonatype.org/"
