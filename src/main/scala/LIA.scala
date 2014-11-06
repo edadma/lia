@@ -533,8 +533,15 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		mc = mathContext( p )
 	}
 	
+	def lookup( operation: Symbol ) = operations( operation )
+	
 	def apply( operation: Symbol, operands: Any* ) =
 	{
 		operations( operation )( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
+	}
+	
+	def apply( operation: Map[Seq[Class[_]], Seq[AnyRef] => AnyRef], operands: Any* ) =
+	{
+		operation( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
 	}
 }
