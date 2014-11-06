@@ -21,7 +21,7 @@ object Math extends LIA
 // 	special( ("ComplexDouble", "BigInt") -> "funl.lia.ComplexDecimal" )
 // 	special( ("funl.lia.Rational", "funl.lia.ComplexDouble") -> "funl.lia.ComplexDecimal" )
 // 	special( ("funl.lia.ComplexDouble", "funl.lia.Rational") -> "funl.lia.ComplexDecimal" )
-	operation( '+,
+	operation( "+",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue + b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) + toBigInt(b) )),
@@ -30,7 +30,7 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) + toBigDecimal(b)),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) + toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) + toComplexDecimal(b)) ) )
-	operation( '-,
+	operation( "-",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue - b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) - toBigInt(b) )),
@@ -46,7 +46,7 @@ object Math extends LIA
 			"Double" -> ((a: boxed.Double) => -a.doubleValue),
 			"funl.lia.ComplexDouble" -> ((a: ComplexDouble) => -a),
 			"funl.lia.ComplexDecimal" -> ((a: ComplexDecimal) => -a) ) )
-	operation( '*,
+	operation( "*",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue * b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) * toBigInt(b) )),
@@ -55,7 +55,7 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) * toBigDecimal(b)),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) * toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) * toComplexDecimal(b)) ) )
-	operation( '/,
+	operation( "/",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => (toRational(a) / toRational(b)).maybeDemote),
 			"BigInt" -> (((a: Number), (b: Number)) => (toRational(a) / toRational(b)).maybeDemote),
@@ -64,11 +64,11 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) / toBigDecimal(b)),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) / toComplexDecimal(b)) ) )
-	operation( '%,
+	operation( "%",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue % b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) % toBigInt(b) )) ) )
-	operation( 'mod,
+	operation( "mod",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote(
 				{
@@ -84,39 +84,39 @@ object Math extends LIA
 						rem
 				} )),
       "BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) mod toBigInt(b) )) ) )
-	operation( Symbol("\\"),
+	operation( "\\",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue / b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) / toBigInt(b) )) ) )
-	operation( '|,
+	operation( "|",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue == 0),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) == 0) ) )
-	operation( '/|,
+	operation( "/|",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue != 0),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) != 0) ) )
-	operation( 'not,
+	operation( "not",
 		unary(
 			"Integer" -> ((a: Number) => ~a.intValue),
 			"BigInt" -> ((a: Number) => ~toBigInt(a)) ) )
-	operation( 'or,
+	operation( "or",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue|a.intValue),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a)|toBigInt(b)) ) )
-	operation( 'xor,
+	operation( "xor",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue^a.intValue),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a)^toBigInt(b) )) ) )
-	operation( 'and,
+	operation( "and",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue&a.intValue),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a)&toBigInt(b) )) ) )
-	operation( Symbol("\\%"),
+	operation( "\\%",
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => (maybePromote( a.longValue / b.longValue ), maybePromote( a.longValue % b.longValue ))),
 			"BigInt" -> (((a: Number), (b: Number)) => (maybeDemote( toBigInt(a) / toBigInt(b) ), maybeDemote( toBigInt(a) % toBigInt(b) ))) ) )
-	operation( '^,
+	operation( "^",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) =>
 				{
@@ -160,35 +160,35 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => pow( toBigDecimal(a), toBigDecimal(b) )),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) ^ toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) ^ toComplexDecimal(b)) ) )
-	operation( '>,
+	operation( ">",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a > b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) > toBigInt(b)),
 			"funl.lia.Rational" -> (((a: Number), (b: Number)) => toRational(a) > toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue > b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) > toBigDecimal(b)) ) )
-	operation( '<,
+	operation( "<",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a < b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) < toBigInt(b)),
 			"funl.lia.Rational" -> (((a: Number), (b: Number)) => toRational(a) < toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue < b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) < toBigDecimal(b)) ) )
-	operation( '>=,
+	operation( ">=",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a >= b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) >= toBigInt(b)),
 			"funl.lia.Rational" -> (((a: Number), (b: Number)) => toRational(a) >= toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue >= b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) >= toBigDecimal(b)) ) )
-	operation( '<=,
+	operation( "<=",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a <= b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) <= toBigInt(b)),
 			"funl.lia.Rational" -> (((a: Number), (b: Number)) => toRational(a) <= toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue <= b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) <= toBigDecimal(b)) ) )
-	operation( '==,
+	operation( "==",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a == b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) == toBigInt(b)),
@@ -197,7 +197,7 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) == toBigDecimal(b)),
 			"funl.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
 			"funl.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) == toComplexDecimal(b)) ) )
-	operation( '!=,
+	operation( "!=",
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a != b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) != toBigInt(b)),

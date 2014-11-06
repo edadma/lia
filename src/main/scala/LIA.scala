@@ -16,7 +16,7 @@ import math.{log => lg, _}
 import Util._
 
 
-class LIA extends ((Symbol, Any*) => AnyRef)
+class LIA extends ((String, Any*) => AnyRef)
 {
 	implicit def int2bigDecimal( a: Int ) = bigDecimal( a )
 	implicit def double2bigDecimal( a: Double ): BigDecimal = bigDecimal( a )
@@ -70,7 +70,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	
 	protected var mc = MathContext.DECIMAL128
 	
-	protected val operations = new HashMap[Symbol, Map[Seq[Class[_]], Seq[AnyRef] => AnyRef]]
+	protected val operations = new HashMap[String, Map[Seq[Class[_]], Seq[AnyRef] => AnyRef]]
 	
 	protected val specials = new HashMap[(String, String), String]
 	
@@ -488,7 +488,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 			yield
 				List( t ) -> (unary( (_: Seq[AnyRef]), f ))
 
-	protected def operation( sym: Symbol, maps: Seq[(List[String], Seq[AnyRef] => AnyRef)] ) =
+	protected def operation( sym: String, maps: Seq[(List[String], Seq[AnyRef] => AnyRef)] ) =
 	{
 		def classForName( name: String ) =
 			try
@@ -533,9 +533,9 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		mc = mathContext( p )
 	}
 	
-	def lookup( operation: Symbol ) = operations( operation )
+	def lookup( operation: String ) = operations( operation )
 	
-	def apply( operation: Symbol, operands: Any* ) =
+	def apply( operation: String, operands: Any* ) =
 	{
 		operations( operation )( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
 	}

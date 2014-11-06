@@ -154,25 +154,25 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 		import Rational._
 		import Complex._
 
-		Math( '+, 1.5, 2 ) should (be (3.5) and be (a [jl.Double]))
-		Math( '+, BigDecimal(1.5), 2 ) should (be (3.5) and be (a [BigDecimal]))
-		Math( '+, BigInt(1), 2 ) should (be (3) and be (a [jl.Integer]))
-		Math( '+, BigInt(1), BigInt(2) ) should (be (3) and be (a [jl.Integer]))
-		Math( '+, BigInt(1), 2.5 ) shouldBe 3.5
-		Math( '^, -1.0, .5 ) shouldBe 1.i
-		Math( '^, 3, -4 ) shouldBe (1 over 81)
-		Math( '^, BigInt(3), -4 ) shouldBe (1 over 81)
-		Math( '^, 3, BigInt(-4) ) shouldBe (1 over 81)
-		Math( '%, BigInt(12), 5 ) should (be (2) and be (a [jl.Integer]))
-		Math( '%, 12, 5 ) should (be (2) and be (a [jl.Integer]))
-		Math( '|, BigInt(5), 10 ) shouldBe true
-		Math( '|, 5, 10 ) shouldBe true
-		Math( '|, BigInt(5), 11 ) shouldBe false
-		Math( '|, 5, 11 ) shouldBe false
-		Math( '/|, BigInt(5), 10 ) shouldBe false
-		Math( '/|, 5, 10 ) shouldBe false
-		Math( '/|, BigInt(5), 11 ) shouldBe true
-		Math( '/|, 5, 11 ) shouldBe true
+		Math( "+", 1.5, 2 ) should (be (3.5) and be (a [jl.Double]))
+		Math( "+", BigDecimal(1.5), 2 ) should (be (3.5) and be (a [BigDecimal]))
+		Math( "+", BigInt(1), 2 ) should (be (3) and be (a [jl.Integer]))
+		Math( "+", BigInt(1), BigInt(2) ) should (be (3) and be (a [jl.Integer]))
+		Math( "+", BigInt(1), 2.5 ) shouldBe 3.5
+		Math( "^", -1.0, .5 ) shouldBe 1.i
+		Math( "^", 3, -4 ) shouldBe (1 over 81)
+		Math( "^", BigInt(3), -4 ) shouldBe (1 over 81)
+		Math( "^", 3, BigInt(-4) ) shouldBe (1 over 81)
+		Math( "%", BigInt(12), 5 ) should (be (2) and be (a [jl.Integer]))
+		Math( "%", 12, 5 ) should (be (2) and be (a [jl.Integer]))
+		Math( "|", BigInt(5), 10 ) shouldBe true
+		Math( "|", 5, 10 ) shouldBe true
+		Math( "|", BigInt(5), 11 ) shouldBe false
+		Math( "|", 5, 11 ) shouldBe false
+		Math( "/|", BigInt(5), 10 ) shouldBe false
+		Math( "/|", 5, 10 ) shouldBe false
+		Math( "/|", BigInt(5), 11 ) shouldBe true
+		Math( "/|", 5, 11 ) shouldBe true
 	}
 
   "Math (functions)" in
