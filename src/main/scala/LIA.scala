@@ -70,7 +70,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	
 	protected var mc = MathContext.DECIMAL128
 	
-	protected val operations = new HashMap[Symbol, Map[Seq[Class[_]], Seq[AnyRef] => AnyRef]]
+	protected val operations = new HashMap[Symbol, FunctionMap]
 	
 	protected val specials = new HashMap[(String, String), String]
 	
@@ -540,7 +540,7 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 		operations( operation )( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
 	}
 	
-	def apply( operation: Map[Seq[Class[_]], Seq[AnyRef] => AnyRef], operands: Any* ) =
+	def apply( operation: FunctionMap, operands: Any* ) =
 	{
 		operation( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
 	}
