@@ -1,14 +1,14 @@
 name := "LIA"
 
-version := "0.14"
+version := "0.15"
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.6"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
 incOptions := incOptions.value.withNameHashing(true)
 
-organization := "org.funl-lang"
+organization := "ca.hyperreal"
 
 resolvers += Resolver.sonatypeRepo( "snapshots" )
 
@@ -17,9 +17,11 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
 libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
 
 
+seq(bintraySettings:_*)
+
 publishMavenStyle := true
 
-publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
+//publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
 
 //{
 //  val nexus = "https://oss.sonatype.org/"
@@ -33,14 +35,14 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-licenses := Seq("LGPL" -> url("http://opensource.org/licenses/LGPL-3.0"))
+licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
-homepage := Some(url("https://github.com/FunL/lia"))
+homepage := Some(url("https://github.com/edadma/lia"))
 
 pomExtra := (
   <scm>
-    <url>git@github.com:FunL/lia.git</url>
-    <connection>scm:git:git@github.com:FunL/lia.git</connection>
+    <url>git@github.com:edadma/lia.git</url>
+    <connection>scm:git:git@github.com:edadma/lia.git</connection>
   </scm>
   <developers>
     <developer>
