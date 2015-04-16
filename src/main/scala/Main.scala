@@ -1,4 +1,4 @@
-package funl.lia
+package ca.hyperreal.lia
 
 import math._
 

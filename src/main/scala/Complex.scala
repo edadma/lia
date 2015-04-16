@@ -1,4 +1,4 @@
-package funl.lia
+package ca.hyperreal.lia
 
 
 object Complex
