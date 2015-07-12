@@ -537,4 +537,8 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	{
 		operation( operands map (_.getClass) )( operands.asInstanceOf[Seq[AnyRef]] )
 	}
+	
+	def predicate( operation: Symbol, operands: Any* ) = apply( operation, operands ).asInstanceOf[Boolean]
+	
+	def predicate( operation: FunctionMap, operands: Any* ) = apply( operation, operands ).asInstanceOf[Boolean]
 }
