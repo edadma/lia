@@ -57,6 +57,15 @@ object Math extends LIA
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) / toBigDecimal(b)),
 			"ca.hyperreal.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"ca.hyperreal.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) / toComplexDecimal(b)) ) )
+	operation( '//,
+		binary(
+			"Integer" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
+			"BigInt" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
+			"ca.hyperreal.lia.Rational" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
+			"Double" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
+			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) / toBigDecimal(b)),
+			"ca.hyperreal.lia.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
+			"ca.hyperreal.lia.ComplexDecimal" -> (((a: Number), (b: Number)) => toComplexDecimal(a) / toComplexDecimal(b)) ) )
 	operation( '%,
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue % b.longValue )),
