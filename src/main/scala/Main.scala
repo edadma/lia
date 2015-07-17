@@ -27,7 +27,7 @@ object Main extends App
 // 	time( println( Math.ln(x) ) )
 // 	time( println( Math.ln(1.1), log(1.1) ) )
 
-	println( Math('not, 1) )
+	println( Math.predicate('<, 1, 3) )
 }
 
 // 	def agm( x: Double, y: Double ) =
