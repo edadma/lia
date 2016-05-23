@@ -1,4 +1,4 @@
-package ca.hyperreal.lia
+package xyz.hyperreal.lia
 
 import java.{lang => jl}
 
@@ -85,21 +85,6 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 		assert( (3 + 4.i).atanh.tanh roughly (3 + 4.i) )
 	}
 	
-	"Rational" in
-	{
-		import Rational._
-	
-		(3 over 4 match {case Rational( a, b ) => (a, b)}) shouldBe (3, 4)
-		3 over 4 shouldBe Rational( 3, 4 )
-		(3 over 4) ^ 5 shouldBe (243 over 1024)
-		(3 over 4) ^ -5 shouldBe (1024 over 243)
-		(0 over 1) ^ 0 shouldBe 0
-		(3 over 4) ^ 1 shouldBe (3 over 4)
-		
-// 		pow( BigInt(3), BigInt(0) ) shouldBe 1
-// 		pow( BigInt(0), BigInt(3) ) shouldBe 0
-	}
-	
 // 	"Utils" in
 // 	{
 // 		(Math.sqrt( BigDecimal(3) )*Math.sqrt( BigDecimal(3) )).toDouble shouldBe 3
@@ -151,7 +136,7 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 
 	"Math (LIA)" in
 	{
-		import Rational._
+		import xyz.hyperreal.numbers.Rational._
 		import Complex._
 
 		Math( '+, 1.5, 2 ) should (be (3.5) and be (a [jl.Double]))
@@ -160,9 +145,9 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 		Math( '+, BigInt(1), BigInt(2) ) should (be (3) and be (a [jl.Integer]))
 		Math( '+, BigInt(1), 2.5 ) shouldBe 3.5
 		Math( '^, -1.0, .5 ) shouldBe 1.i
-		Math( '^, 3, -4 ) shouldBe (1 over 81)
-		Math( '^, BigInt(3), -4 ) shouldBe (1 over 81)
-		Math( '^, 3, BigInt(-4) ) shouldBe (1 over 81)
+		Math( '^, 3, -4 ) shouldBe (1\81)
+		Math( '^, BigInt(3), -4 ) shouldBe (1\81)
+		Math( '^, 3, BigInt(-4) ) shouldBe (1\81)
 		Math( '%, BigInt(12), 5 ) should (be (2) and be (a [jl.Integer]))
 		Math( '%, 12, 5 ) should (be (2) and be (a [jl.Integer]))
 		Math( '|, BigInt(5), 10 ) shouldBe true
@@ -189,8 +174,8 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 //    Math( 'sqrt, BigDecimal(3) ) shouldBe Math.sqrt( 3 )
 //    Math( 'sqrt, BigInt(4) ) should (be (2) and be (a [jl.Integer]))
 //    Math( 'sqrt, BigInt(Long.MaxValue)*2*BigInt(Long.MaxValue)*2 ) should (be (BigInt(Long.MaxValue)*2) and be (a [BigInt]))
-//    Math( 'sqrt, 3 over 4 ) shouldBe Math.sqrt( Math.bigDecimal(3)/4 )
-//    Math( 'sqrt, 4 over 3 ) shouldBe Math.sqrt( Math.bigDecimal(4)/3 )
-//    Math( 'sqrt, 4 over 9 ) shouldBe (2 over 3)
+//    Math( 'sqrt, 3/4 ) shouldBe Math.sqrt( Math.bigDecimal(3)/4 )
+//    Math( 'sqrt, 4/3 ) shouldBe Math.sqrt( Math.bigDecimal(4)/3 )
+//    Math( 'sqrt, 4/9 ) shouldBe (2/3)
   }
 }

@@ -2,19 +2,21 @@ name := "LIA"
 
 version := "0.17"
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.8"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
 incOptions := incOptions.value.withNameHashing(true)
 
-organization := "ca.hyperreal"
+organization := "xyz.hyperreal"
 
 resolvers += Resolver.sonatypeRepo( "snapshots" )
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.12.5" % "test"
+
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.1"
 
 
 seq(bintraySettings:_*)

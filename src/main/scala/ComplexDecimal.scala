@@ -1,4 +1,4 @@
-package ca.hyperreal.lia
+package xyz.hyperreal.lia
 
 import Util._
 

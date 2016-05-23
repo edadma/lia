@@ -1,10 +1,12 @@
-package ca.hyperreal.lia
+package xyz.hyperreal.lia
 
 import java.math.{RoundingMode, MathContext}
 import java.{lang => jl}
 
 import collection.mutable.HashMap
 import math.{log => lg, _}
+
+import xyz.hyperreal.numbers.Rational
 
 import Util._
 
@@ -345,12 +347,12 @@ class LIA extends ((Symbol, Any*) => AnyRef)
 	
 	def bigDecimal( n: Double ): BigDecimal = BigDecimal( n, mc )
 
-	def bigDecimal( r: Rational ): BigDecimal =
-	{
-	val quo = bigDecimal( r.n )/bigDecimal( r.d )
-
-	  if (quo.precision > mc.getPrecision) quo.round( mc ) else quo
-	}
+	def bigDecimal( r: Rational ): BigDecimal = r.decimalValue( mc )
+// 	{
+// 	val quo = bigDecimal( r.n )/bigDecimal( r.d )
+// 
+// 	  if (quo.precision > mc.getPrecision) quo.round( mc ) else quo
+// 	}
 
 	def bigDecimal( n: BigInt ): BigDecimal =
 	{

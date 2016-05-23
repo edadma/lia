@@ -1,4 +1,4 @@
-package ca.hyperreal.lia
+package xyz.hyperreal.lia
 
 import math.{sqrt => sqr, exp => ex, abs => ab, cos => co, sin => si, _}
 
