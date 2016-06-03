@@ -10,7 +10,7 @@ incOptions := incOptions.value.withNameHashing(true)
 
 organization := "xyz.hyperreal"
 
-resolvers += Resolver.sonatypeRepo( "snapshots" )
+resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 
