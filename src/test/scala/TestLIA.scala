@@ -2,10 +2,12 @@ package xyz.hyperreal.lia
 
 import java.{lang => jl}
 
-import math.{sqrt => sqr, pow => po, _}
+import math._
 
 import org.scalatest._
 import prop.PropertyChecks
+
+import xyz.hyperreal.numbers._
 
 import Util._
 
@@ -45,45 +47,6 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 //  		Math(3, 4).acosh.cosh shouldBe Math(3, 4)
 //  		Math(3, 4).atanh.tanh shouldBe Math(3, 4)
 // 	}
-
-	"ComplexDouble" in
-	{
-		import Complex._
-
-		(3 + 4.i) + (5 + 6.i) shouldBe 8 + 10.i
-		(3 + 4.i) - (5 + 6.i) shouldBe -2 - 2.i
-		(3 + 4.i).abs shouldBe 5
-		(3 + 4.i)*(5 + 6.i) shouldBe -9 + 38.i
-		(-9 + 38.i)/(5 + 6.i) shouldBe 3 + 4.i
-		(3 + 4.i)*(3 + 4.i).inv shouldBe 1
-		((3 + 4.i) match {case Complex( a, b ) => (a, b)}) shouldBe (3, 4)
-		(3 + 4.i).sqrt shouldBe (2 + 1.i)
-		(5 + 0.i).sqrt shouldBe sqr(5)
-		(-1 + 0.i).sqrt shouldBe (1.i)
-		(-4 + 0.i).sqrt shouldBe (2.i)
-		(Pi.i).exp + 1 shouldBe 0
-		(1 + Pi.i).exp shouldBe -E
-		(1.i)^(1.i) shouldBe exp(-Pi/2)
-		(3 + 4.i)^0.5 shouldBe (3 + 4.i).sqrt
-		(3 + 0.i).cos shouldBe cos(3)
-		(3 + 0.i).cosh shouldBe cosh(3)
-		(.5 + 0.i).acos shouldBe acos(.5)
-		(3 + 0.i).acosh shouldBe acosh(3)
-		(3 + 0.i).sin shouldBe sin(3)
-		(3 + 0.i).sinh shouldBe sinh(3)
-		(.5 + 0.i).asin shouldBe asin(.5)
-		(3 + 0.i).asinh shouldBe asinh(3)
-		(3 + 0.i).tan shouldBe tan(3)
-		(.5 + 0.i).atan shouldBe atan(.5)
-		(.5 + 0.i).atanh shouldBe atanh(.5)
-		(3 + 0.i).tanh shouldBe tanh(3)
-		assert( (3 + 4.i).asin.sin roughly (3 + 4.i) )
-		assert( (3 + 4.i).acos.cos roughly (3 + 4.i) )
-		assert( (3 + 4.i).atan.tan roughly (3 + 4.i) )
-		assert( (3 + 4.i).asinh.sinh roughly (3 + 4.i) )
-		assert( (3 + 4.i).acosh.cosh roughly (3 + 4.i) )
-		assert( (3 + 4.i).atanh.tanh roughly (3 + 4.i) )
-	}
 	
 // 	"Utils" in
 // 	{
@@ -136,8 +99,8 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 
 	"Math (LIA)" in
 	{
-		import xyz.hyperreal.numbers.Rational._
-		import Complex._
+		import Rational._
+		import ComplexDouble._
 
 		Math( '+, 1.5, 2 ) should (be (3.5) and be (a [jl.Double]))
 		Math( '+, BigDecimal(1.5), 2 ) should (be (3.5) and be (a [BigDecimal]))
@@ -162,11 +125,11 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 
   "Math (functions)" in
   {
-		import Complex._
+		import ComplexDouble._
 		
-    Math.sqrtFunction( 3 ) shouldBe sqr( 3 )
+    Math.sqrtFunction( 3 ) shouldBe sqrt( 3 )
 		Math.sqrtFunction( 4 ) should (be (2) and be (a [jl.Integer]))
-    Math.sqrtFunction( -4 ) shouldBe 2.i
+    Math.sqrtFunction( -4 ) shouldBe 2*i
     Math.sqrtFunction( BigInt(4) ) should (be (2) and be (a [jl.Integer]))
     Math.sqrtFunction( BigInt("100000000000000000000") ) shouldBe BigInt("10000000000")
 // //     Math( 'sqrt, 3L ) shouldBe Math.sqrt( 3 )
