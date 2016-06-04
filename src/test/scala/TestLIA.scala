@@ -97,7 +97,7 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 // 		pow( BigInt(0), BigInt(3) ) shouldBe 0
 // 	}
 
-	"Math (LIA)" in
+	"Math operations" in
 	{
 		import Rational._
 		import ComplexDouble._
@@ -123,7 +123,19 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 		Math( '/|, 5, 11 ) shouldBe true
 	}
 
-  "Math (functions)" in
+	"Math ComplexBigInt" in
+	{
+		import Rational._
+		import ComplexBigInt._
+
+		Math( '+, 1 + i, 2 ) shouldBe 3 + i
+		Math( '+, 1 + i, BigInt(2) ) shouldBe 3 + i
+		Math( '+, 1 + i, 1\2 ) shouldBe ComplexRational( 3\2, 1 )
+		Math( '+, 1 + i, 1.2 ) shouldBe ComplexDouble( 2.2, 1 )
+		Math( '+, 1 + i, ComplexDouble(2, 3) ) shouldBe ComplexDouble( 3, 4 )
+	}
+	
+  "Math functions" in
   {
 		import ComplexDouble._
 		
@@ -132,8 +144,6 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
     Math.sqrtFunction( -4 ) shouldBe 2*i
     Math.sqrtFunction( BigInt(4) ) should (be (2) and be (a [jl.Integer]))
     Math.sqrtFunction( BigInt("100000000000000000000") ) shouldBe BigInt("10000000000")
-// //     Math( 'sqrt, 3L ) shouldBe Math.sqrt( 3 )
-// //     Math( 'sqrt, 4L ) should (be (2) and be (a [jl.Integer]))
 //    Math( 'sqrt, BigDecimal(3) ) shouldBe Math.sqrt( 3 )
 //    Math( 'sqrt, BigInt(4) ) should (be (2) and be (a [jl.Integer]))
 //    Math( 'sqrt, BigInt(Long.MaxValue)*2*BigInt(Long.MaxValue)*2 ) should (be (BigInt(Long.MaxValue)*2) and be (a [BigInt]))

@@ -8,12 +8,9 @@ import xyz.hyperreal.numbers._
 
 object Math extends LIA
 {
-	special( ("xyz.hyperreal.numbers.ComplexBigInt", "Double") -> "xyz.hyperreal.numbers.ComplexDouble" )
 	special( ("Double", "xyz.hyperreal.numbers.ComplexBigInt") -> "xyz.hyperreal.numbers.ComplexDouble" )
 	special( ("BigDecimal", "xyz.hyperreal.numbers.ComplexBigInt") -> "xyz.hyperreal.numbers.ComplexBigDecimal" )
-	special( ("xyz.hyperreal.numbers.ComplexBigInt", "BigDecimal") -> "xyz.hyperreal.numbers.ComplexBigDecimal" )
 	special( ("xyz.hyperreal.numbers.Rational", "xyz.hyperreal.numbers.ComplexBigInt") -> "xyz.hyperreal.numbers.ComplexRational" )
-	special( ("xyz.hyperreal.numbers.ComplexBigInt", "xyz.hyperreal.numbers.Rational") -> "xyz.hyperreal.numbers.ComplexRational" )
 	operation( '+,
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue + b.longValue )),
@@ -21,6 +18,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => (toRational(a) + toRational(b)).maybeDemote),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue + b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) + toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => maybeDemote( toComplexBigInt(a) + toComplexBigInt(b) )),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) + toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) + toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) + toComplexBigDecimal(b)) ) )
 	operation( '-,

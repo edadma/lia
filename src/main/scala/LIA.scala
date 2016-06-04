@@ -19,6 +19,7 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 	protected def special( s: ((String, String), String) )
 	{
 		specials(s._1) = s._2
+		specials((s._1._2, s._1._1)) = s._2
 	}
 	
 	def bisqrt( n: BigInt ) =
@@ -78,6 +79,9 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 			case cd: ComplexDouble => cd
 			case i: boxed.Integer => ComplexDouble( i.doubleValue )
 			case d: boxed.Double => ComplexDouble( d )
+			case r: Rational => ComplexDouble( r.doubleValue )
+			case bi: BigInt => ComplexDouble( bi.doubleValue )
+			case cbi: ComplexBigInt => ComplexDouble( cbi.re.doubleValue, cbi.im.doubleValue )
 			case _ => sys.error( "can't convert from " + a )
 		}
 	
@@ -97,6 +101,26 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 				val m = if (len >= bdmath.mc.getPrecision) mathContext(len + 5) else bdmath.mc
 
 				new ComplexBigDecimal( BigDecimal(bi, m), 0 )
+			case _ => sys.error( "can't convert from " + a )
+		}
+	
+	def toComplexBigInt( a: Number ): ComplexBigInt =
+		a match
+		{
+			case bi: BigInt => ComplexBigInt( bi )
+			case i: boxed.Integer => ComplexBigInt( toBigInt(i) )
+			case cbi: ComplexBigInt => cbi
+			case _ => sys.error( "can't convert from " + a )
+		}
+	
+	def toComplexRational( a: Number ): ComplexRational =
+		a match
+		{
+			case bi: BigInt => ComplexRational( toRational(bi) )
+			case i: boxed.Integer => ComplexRational( toRational(i) )
+			case r: Rational => ComplexRational( r )
+			case cbi: ComplexBigInt => ComplexRational( toRational(cbi.re), toRational(cbi.im) )
+			case cr: ComplexRational => cr
 			case _ => sys.error( "can't convert from " + a )
 		}
 	
@@ -123,11 +147,17 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 	  else
 	    n
 
-// 	def maybeDemote( n: Long ): Number =
-// 	  if (n >= Int.MinValue && n <= Int.MaxValue)
-// 	    n.toInt.asInstanceOf[Number]
-// 	  else
-// 	    n.asInstanceOf[Number]
+	def maybeDemote( n: ComplexBigInt ): Number =
+		if (n.im == 0)
+			maybeDemote( n.re )
+		else
+			n
+
+	def maybeDemote( n: ComplexRational ): Number =
+		if (n.im.isZero)
+			maybeDemote( n.re )
+		else
+			n
 
 	def maybePromote( n: Long ) =
 		if (n >= Int.MinValue && n <= Int.MaxValue)
@@ -135,12 +165,6 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 		else
 			BigInt( n )
 
-/* 	def maybeDemote( n: Rational ): Number =
-	  if (n.isValidDouble)
-	    n.toDouble.asInstanceOf[Number]
-	  else
-	    n
- */
 	protected def binary[A, B]( args: Seq[AnyRef], f: (A, B) => Any ) = f( args(0).asInstanceOf[A], args(1).asInstanceOf[B] ).asInstanceOf[AnyRef]
 	
 	protected def unary[A]( args: Seq[AnyRef], f: A => Any ) = f( args(0).asInstanceOf[A] ).asInstanceOf[AnyRef]
