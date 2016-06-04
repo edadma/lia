@@ -155,7 +155,7 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 
 	def maybeDemote( n: ComplexRational ): Number =
 		if (n.im.isZero)
-			maybeDemote( n.re )
+			n.re.maybeDemote
 		else
 			n
 
