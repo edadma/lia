@@ -36,6 +36,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => (toRational(a) - toRational(b)).maybeDemote),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue - b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) - toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => maybeDemote( toComplexBigInt(a) - toComplexBigInt(b) )),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) - toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) - toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) - toComplexBigDecimal(b)) ) ++
 		unary(
@@ -43,6 +45,8 @@ object Math extends LIA
 			"BigInt" -> ((a: BigInt) => -a),
 			"xyz.hyperreal.numbers.Rational" -> ((a: Rational) => -a),
 			"Double" -> ((a: boxed.Double) => -a.doubleValue),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> ((a: ComplexBigInt) => -a),
+			"xyz.hyperreal.numbers.ComplexRational" -> ((a: ComplexRational) => -a),
 			"xyz.hyperreal.numbers.ComplexDouble" -> ((a: ComplexDouble) => -a),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> ((a: ComplexBigDecimal) => -a) ) )
 	operation( '*,
@@ -52,6 +56,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => (toRational(a) * toRational(b)).maybeDemote),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue * b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) * toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => maybeDemote( toComplexBigInt(a) * toComplexBigInt(b) )),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) * toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) * toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) * toComplexBigDecimal(b)) ) )
 	operation( '/,
@@ -61,6 +67,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => (toRational(a) / toRational(b)).maybeDemote),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) / toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) / toComplexRational(b) )),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) / toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) / toComplexBigDecimal(b)) ) )
 	operation( '//,
@@ -70,6 +78,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) / toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) / toComplexBigDecimal(b)) ) )
 	operation( '%,
@@ -203,6 +213,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) == toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue == b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) == toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => toComplexBigInt(a) == toComplexBigInt(b)),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexRational(a) == toComplexRational(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) == toComplexBigDecimal(b)) ) )
 	operation( '!=,
@@ -212,6 +224,8 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) != toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue != b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) != toBigDecimal(b)),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => toComplexBigInt(a) != toComplexBigInt(b)),
+			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexRational(a) != toComplexRational(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) != toComplexBigDecimal(b)) ) )
 	
