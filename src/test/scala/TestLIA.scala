@@ -47,55 +47,6 @@ class TestLIA extends FreeSpec with PropertyChecks with Matchers with Assertions
 //  		Math(3, 4).acosh.cosh shouldBe Math(3, 4)
 //  		Math(3, 4).atanh.tanh shouldBe Math(3, 4)
 // 	}
-	
-// 	"Utils" in
-// 	{
-// 		(Math.sqrt( BigDecimal(3) )*Math.sqrt( BigDecimal(3) )).toDouble shouldBe 3
-// 		Math.Pi.v.toDouble shouldBe Pi
-// 		Math.E.v.toDouble shouldBe E
-// 		Math.exp( 0 ) shouldBe 1
-// 		Math.exp( -1 ).toDouble shouldBe 1/E
-// 		Math.exp( 1 ).toDouble shouldBe E
-// 		Math.exp( 100 ).toDouble shouldBe exp( 100 )
-// 		Math.exp(Math.ln( 1.1 )).toDouble shouldBe 1.1
-// 		nearly( Math.ln( 1 ).toDouble, 0 ) shouldBe true
-// 		Math.ln( Math.E.v ).toDouble shouldBe 1
-// 		Math.ln( Math.E.v*Math.E.v ).toDouble shouldBe 2
-// 		Math.ln( Math.exp(5) ).toDouble shouldBe 5
-// 		Math.sin( 0 ) shouldBe 0
-// 		Math.sin( Math.Pi.v/2 ).toDouble shouldBe 1
-// 		nearly( Math.sin( Math.Pi.v ).toDouble, 0 ) shouldBe true
-// 		Math.sin( 1.5*Math.Pi.v ).toDouble shouldBe -1
-// 		nearly( Math.sin( 2*Math.Pi.v ).toDouble, 0 ) shouldBe true
-// 		Math.cos( 0 ) shouldBe 1
-// 		nearly( Math.cos( Math.Pi.v/2 ).toDouble, 0 ) shouldBe true
-// 		nearly( Math.cos( Math.Pi.v ).toDouble, -1 ) shouldBe true
-// 		nearly( Math.cos( 1.5*Math.Pi.v ).toDouble, 0 ) shouldBe true
-// 		nearly( Math.cos( 2*Math.Pi.v ).toDouble, 1 ) shouldBe true
-// 		Math.acos( 0 ).toDouble shouldBe Pi/2
-// 		Math.acos( 1 ).toDouble shouldBe 0
-// 		Math.acos( -1 ).toDouble shouldBe Pi
-// 		Math.acos( .5 ).toDouble shouldBe acos( .5 )
-// 		Math.atan( .5 ).toDouble shouldBe atan( .5 )
-// 		Math.atan( 1 ).toDouble shouldBe Pi/4
-// 		Math.atan( 0 ).toDouble shouldBe 0
-// 		Math.atan( -1 ).toDouble shouldBe -Pi/4
-// 		Math.atan2( 0, 0).toDouble shouldBe 0
-// 		Math.atan2( 1, 0).toDouble shouldBe Pi/2
-// 		Math.atan2( 0, 1).toDouble shouldBe 0
-// 		Math.atan2( 1, 1).toDouble shouldBe Pi/4
-// 		Math.atan2( -1, 0).toDouble shouldBe -Pi/2
-// 		Math.atan2( 0, -1).toDouble shouldBe Pi
-// 		Math.atan2( -1, -1).toDouble shouldBe -.75*Pi
-// 		Math.atan2( -1, 1).toDouble shouldBe -Pi/4
-// 		Math.atan2( 1, -1).toDouble shouldBe .75*Pi
-// 		Math.atanh( .5 ).round( java.math.MathContext.DECIMAL64 ).toDouble shouldBe atanh( .5 )
-// 		pow( BigInt(3), BigInt(5) ) shouldBe 243
-// 		pow( BigInt(0), BigInt(0) ) shouldBe 0
-// 		pow( BigInt(3), BigInt(1) ) shouldBe 3
-// 		pow( BigInt(3), BigInt(0) ) shouldBe 1
-// 		pow( BigInt(0), BigInt(3) ) shouldBe 0
-// 	}
 
 	"Math operations" in
 	{

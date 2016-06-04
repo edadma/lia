@@ -160,8 +160,7 @@ object Math extends LIA
 						maybeDemote( res )
 				} ),
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) =>
-				b match
-				{
+				b match {
 					case bi: boxed.Integer => (a.asInstanceOf[Rational] ^ bi).maybeDemote
 					case bbi: BigInt => (a.asInstanceOf[Rational] ^ bbi).maybeDemote
 					case br: Rational => pow( a.doubleValue, br.doubleValue )
@@ -176,6 +175,15 @@ object Math extends LIA
 						math.pow( _a, b.doubleValue )
 				} ),
 			"BigDecimal" -> (((a: Number), (b: Number)) => bdmath.pow( toBigDecimal(a), toBigDecimal(b) )),
+			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) =>
+				b match {
+					case p: boxed.Integer => a.asInstanceOf[ComplexBigInt] ^ p.intValue
+					case (_: boxed.Double | _: Rational) => a.asInstanceOf[ComplexBigInt] ^ b.doubleValue
+					case p: BigInt => a.asInstanceOf[ComplexBigInt] ^ p
+					case p: BigDecimal => toComplexBigDecimal(a) ^ p
+					case (_: ComplexRational | _: ComplexDouble | _: ComplexBigInt) => toComplexDouble(a) ^ toComplexDouble(b)
+					case p: ComplexBigDecimal => toComplexBigDecimal(a) ^ p
+				} ),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) ^ toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) ^ toComplexBigDecimal(b)) ) )
 	operation( '>,
@@ -251,7 +259,7 @@ object Math extends LIA
 						case Right( dr ) => if (a < 0) new ComplexBigDecimal( 0, dr ) else dr
 					}
 				}
-			case a: xyz.hyperreal.numbers.Rational =>
+			case a: Rational =>
 				{
 				val ar = a.abs
 
@@ -273,78 +281,71 @@ object Math extends LIA
 				}
 			case a: boxed.Double => if (a < 0) new ComplexDouble( 0, sqrt(-a) ) else new boxed.Double( sqrt(a) )
 			case a: BigDecimal => if (a < 0) new ComplexBigDecimal( 0, bdmath.sqrt(-a) ) else bdmath.sqrt( a )
+			case a: ComplexBigInt => a.sqrt
+			case a: ComplexRational => a.sqrt
 			case a: ComplexDouble => a.sqrt
 			case a: ComplexBigDecimal => a.sqrt
 		}
 
 	def absFunction( n: Any ): Number =
-		n match
-		{
+		n match {
 			case a: boxed.Integer => maybePromote( abs(a.longValue) )
 			case a: BigInt => maybeDemote( a.abs )
 			case a: xyz.hyperreal.numbers.Rational => a.abs
 			case a: boxed.Double => new boxed.Double( abs(a) )
 			case a: BigDecimal => a.abs
+			case a: ComplexBigInt => a.abs
+			case a: ComplexRational => a.abs
 			case a: ComplexDouble => new boxed.Double( a.abs )
 			case a: ComplexBigDecimal => a.abs
 		}
 
-	def cosFunction( n: Any ): Number =
-		n match
-		{
-			case a: boxed.Integer => cos( a.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigInt => bdmath.cos( bigDecimal(a) )
-			case a: xyz.hyperreal.numbers.Rational => bdmath.cos( bigDecimal(a) )
-			case a: boxed.Double => new boxed.Double( cos(a) )
+	def cosFunction( n: Number ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => cos( n.doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => bdmath.cos( a )
+			case a: ComplexBigInt => a.cos
+			case a: ComplexRational => a.cos
 			case a: ComplexDouble => a.cos
 			case a: ComplexBigDecimal => a.cos
 		}
 
-	def sinFunction( n: Any ): Number =
-		n match
-		{
-			case a: boxed.Integer => sin( a.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigInt => bdmath.sin( bigDecimal(a) )
-			case a: xyz.hyperreal.numbers.Rational => bdmath.sin( bigDecimal(a) )
-			case a: boxed.Double => new boxed.Double( sin(a) )
+	def sinFunction( n: Number ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => sin( n.doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => bdmath.sin( a )
+			case a: ComplexBigInt => a.sin
+			case a: ComplexRational => a.sin
 			case a: ComplexDouble => a.sin
 			case a: ComplexBigDecimal => a.sin
 		}
 
-	def acosFunction( n: Any ): Number =
-		n match
-		{
-			case a: boxed.Integer => acos( a.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigInt => bdmath.acos( bigDecimal(a) )
-			case a: xyz.hyperreal.numbers.Rational => bdmath.acos( bigDecimal(a) )
-			case a: boxed.Double => new boxed.Double( acos(a) )
+	def acosFunction( n: Number ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => acos( n.doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => bdmath.acos( a )
+			case a: ComplexBigInt => a.acos
+			case a: ComplexRational => a.acos
 			case a: ComplexDouble => a.acos
 			case a: ComplexBigDecimal => a.acos
 		}
 
-	def asinFunction( n: Any ): Number =
-		n match
-		{
-			case a: boxed.Integer => asin( a.doubleValue ).asInstanceOf[boxed.Double]
-//			case a: BigInt => bdmath.asin( bigDecimal(a) )
-//			case a: xyz.hyperreal.numbers.Rational => bdmath.asin( bigDecimal(a) )
-			case a: boxed.Double => new boxed.Double( asin(a) )
-//			case a: BigDecimal => bdmath.asin( a )
+	def asinFunction( n: Number ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => asin( n.doubleValue ).asInstanceOf[boxed.Double]
+			case a: BigDecimal => bdmath.asin( a )
+			case a: ComplexBigInt => a.asin
+			case a: ComplexRational => a.asin
 			case a: ComplexDouble => a.asin
 			case a: ComplexBigDecimal => a.asin
 		}
 
-  def expFunction( n: Any ): Number =
-    n match
-    {
-      case a: boxed.Integer => exp( a.doubleValue ).asInstanceOf[boxed.Double]
- //     case a: BigInt => bdmath.exp( bigDecimal(a) )
-      case a: xyz.hyperreal.numbers.Rational => exp( a.doubleValue ).asInstanceOf[boxed.Double]
-      case a: boxed.Double => new boxed.Double( exp(a) )
+  def expFunction( n: Number ): Number =
+    n match {
+      case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => exp( n.doubleValue ).asInstanceOf[boxed.Double]
       case a: BigDecimal => bdmath.exp( a )
+			case a: ComplexBigInt => a.exp
+			case a: ComplexRational => a.exp
       case a: ComplexDouble => a.exp
       case a: ComplexBigDecimal => a.exp
     }
