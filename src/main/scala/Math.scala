@@ -4,7 +4,7 @@ import java.{lang => boxed}
 import math._
 
 import xyz.hyperreal.numbers._
-
+import BigDecimalMath.decimal128._
 
 object Math extends LIA
 {
@@ -174,7 +174,7 @@ object Math extends LIA
 					else
 						math.pow( _a, b.doubleValue )
 				} ),
-			"BigDecimal" -> (((a: Number), (b: Number)) => bdmath.pow( toBigDecimal(a), toBigDecimal(b) )),
+			"BigDecimal" -> (((a: Number), (b: Number)) => BigDecimalMath.pow( toBigDecimal(a), toBigDecimal(b) )),
 			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) =>
 				b match {
 					case p: boxed.Integer => a.asInstanceOf[ComplexBigInt] ^ p.intValue
@@ -263,7 +263,7 @@ object Math extends LIA
 				{
 				val ar = a.abs
 
-					def rsqrt = if (a < 0) new ComplexBigDecimal( 0, bdmath.sqrt( ar.decimalValue(bdmath.mc) ) ) else bdmath.sqrt( ar.decimalValue(bdmath.mc) )
+					def rsqrt = if (a < 0) new ComplexBigDecimal( 0, BigDecimalMath.sqrt( ar.decimalValue(bdmath.mc) ) ) else BigDecimalMath.sqrt( ar.decimalValue(bdmath.mc) )
 
 					bisqrt( ar.n ) match
 					{
@@ -280,7 +280,7 @@ object Math extends LIA
 					}
 				}
 			case a: boxed.Double => if (a < 0) new ComplexDouble( 0, sqrt(-a) ) else new boxed.Double( sqrt(a) )
-			case a: BigDecimal => if (a < 0) new ComplexBigDecimal( 0, bdmath.sqrt(-a) ) else bdmath.sqrt( a )
+			case a: BigDecimal => if (a < 0) new ComplexBigDecimal( 0, BigDecimalMath.sqrt(-a) ) else BigDecimalMath.sqrt( a )
 			case a: ComplexBigInt => a.sqrt
 			case a: ComplexRational => a.sqrt
 			case a: ComplexDouble => a.sqrt
@@ -303,7 +303,7 @@ object Math extends LIA
 	def cosFunction( n: Number ): Number =
 		n match {
 			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => cos( n.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigDecimal => bdmath.cos( a )
+			case a: BigDecimal => BigDecimalMath.cos( a )
 			case a: ComplexBigInt => a.cos
 			case a: ComplexRational => a.cos
 			case a: ComplexDouble => a.cos
@@ -313,7 +313,7 @@ object Math extends LIA
 	def sinFunction( n: Number ): Number =
 		n match {
 			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => sin( n.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigDecimal => bdmath.sin( a )
+			case a: BigDecimal => BigDecimalMath.sin( a )
 			case a: ComplexBigInt => a.sin
 			case a: ComplexRational => a.sin
 			case a: ComplexDouble => a.sin
@@ -323,7 +323,7 @@ object Math extends LIA
 	def acosFunction( n: Number ): Number =
 		n match {
 			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => acos( n.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigDecimal => bdmath.acos( a )
+			case a: BigDecimal => BigDecimalMath.acos( a )
 			case a: ComplexBigInt => a.acos
 			case a: ComplexRational => a.acos
 			case a: ComplexDouble => a.acos
@@ -333,7 +333,7 @@ object Math extends LIA
 	def asinFunction( n: Number ): Number =
 		n match {
 			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => asin( n.doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigDecimal => bdmath.asin( a )
+			case a: BigDecimal => BigDecimalMath.asin( a )
 			case a: ComplexBigInt => a.asin
 			case a: ComplexRational => a.asin
 			case a: ComplexDouble => a.asin
@@ -343,7 +343,7 @@ object Math extends LIA
   def expFunction( n: Number ): Number =
     n match {
       case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => exp( n.doubleValue ).asInstanceOf[boxed.Double]
-      case a: BigDecimal => bdmath.exp( a )
+      case a: BigDecimal => BigDecimalMath.exp( a )
 			case a: ComplexBigInt => a.exp
 			case a: ComplexRational => a.exp
       case a: ComplexDouble => a.exp

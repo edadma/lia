@@ -10,7 +10,7 @@ import xyz.hyperreal.numbers._
 import Util._
 
 
-class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyRef)
+class LIA( implicit var bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyRef)
 {
 	protected val operations = new HashMap[Symbol, FunctionMap]
 	
@@ -24,7 +24,7 @@ class LIA( implicit val bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 	
 	def bisqrt( n: BigInt ) =
 	{
-	val dr = bdmath.sqrt( bigDecimal(n) )
+	val dr = BigDecimalMath.sqrt( bigDecimal(n) )
 	val ir = dr.toBigInt
 
 		if (ir*ir == n)
