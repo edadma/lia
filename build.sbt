@@ -20,8 +20,6 @@ libraryDependencies ++= Seq(
 libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.2"
 
 
-seq(bintraySettings:_*)
-
 publishMavenStyle := true
 
 //publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
