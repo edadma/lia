@@ -1,6 +1,6 @@
 name := "LIA"
 
-version := "0.18"
+version := "0.19"
 
 scalaVersion := "2.11.8"
 
@@ -12,9 +12,10 @@ organization := "xyz.hyperreal"
 
 resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
-
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.12.5" % "test"
+libraryDependencies ++= Seq(
+	"org.scalatest" %% "scalatest" % "3.0.0" % "test",
+	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+)
 
 libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.1"
 
