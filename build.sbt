@@ -2,7 +2,7 @@ name := "LIA"
 
 version := "0.19"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.0"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -17,7 +17,7 @@ libraryDependencies ++= Seq(
 	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.1"
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.2"
 
 
 seq(bintraySettings:_*)
