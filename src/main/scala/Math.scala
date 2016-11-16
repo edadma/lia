@@ -247,7 +247,7 @@ object Math extends LIA
 				val ir = round(dr).toInt
 
 					if (ir*ir == n)
-						if (a < 0) new ComplexDouble( 0, ir ) else new boxed.Integer( ir )
+						if (a < 0) new ComplexBigInt( 0, ir ) else new boxed.Integer( ir )
 					else
 						if (a < 0) new ComplexDouble( 0, dr ) else new boxed.Double( dr )
 				}
@@ -255,15 +255,15 @@ object Math extends LIA
 				{
 					bisqrt( a.abs ) match
 					{
-						case Left( ir ) => if (a < 0) new ComplexBigDecimal( 0, bigDecimal(ir) ) else maybeDemote( ir )
-						case Right( dr ) => if (a < 0) new ComplexBigDecimal( 0, dr ) else dr
+						case Left( ir ) => if (a < 0) new ComplexBigInt( 0, ir ) else maybeDemote( ir )
+						case Right( dr ) => if (a < 0) new ComplexDouble( 0, dr.doubleValue ) else dr
 					}
 				}
 			case a: Rational =>
 				{
 				val ar = a.abs
 
-					def rsqrt = if (a < 0) new ComplexBigDecimal( 0, BigDecimalMath.sqrt( ar.decimalValue(bdmath.mc) ) ) else BigDecimalMath.sqrt( ar.decimalValue(bdmath.mc) )
+					def rsqrt = if (a < 0) new ComplexDouble( 0, sqrt(ar.doubleValue) ) else new boxed.Double( sqrt(ar.doubleValue) )
 
 					bisqrt( ar.n ) match
 					{
@@ -273,7 +273,7 @@ object Math extends LIA
 								case Left( ird ) =>
 									val res = Rational( irn, ird )
 
-									if (a < 0) new ComplexBigDecimal( 0, bigDecimal(res) ) else res
+									if (a < 0) new ComplexRational( 0, res ) else res
 								case _ => rsqrt
 							}
 						case _ => rsqrt
