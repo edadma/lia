@@ -160,7 +160,7 @@ class LIA( implicit var bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyR
 			n
 
 	def maybePromote( n: Long ) =
-		if (n >= Int.MinValue && n <= Int.MaxValue)
+		if (n.isValidInt)
 			n.toInt.asInstanceOf[Number]
 		else
 			BigInt( n )
