@@ -1,8 +1,10 @@
 name := "LIA"
 
-version := "0.19"
+version := "0.20"
 
-scalaVersion := "2.12.0"
+scalaVersion := "2.12.1"
+
+crossScalaVersions := Seq( "2.11.8" )
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -17,7 +19,7 @@ libraryDependencies ++= Seq(
 	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.2"
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.3"
 
 
 publishMavenStyle := true
