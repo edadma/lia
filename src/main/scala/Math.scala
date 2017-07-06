@@ -236,7 +236,18 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexRational(a) != toComplexRational(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) != toComplexBigDecimal(b)) ) )
-	
+	operation( 'compare,
+		binary(
+			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a compareTo b),
+			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) compareTo toBigInt(b)),
+			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) compareTo toRational(b)),
+			"Double" -> (((a: Number), (b: Number)) => a.doubleValue compareTo b.doubleValue),
+			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) compareTo toBigDecimal(b)) ) )
+//			"xyz.hyperreal.numbers.ComplexBigInt" -> (((a: Number), (b: Number)) => toComplexBigInt(a) == toComplexBigInt(b)),
+//			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexRational(a) == toComplexRational(b)),
+//			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
+//			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) == toComplexBigDecimal(b)) ) )
+
 	def sqrtFunction( n: Any ): Number =
 		n match
 		{

@@ -1,10 +1,10 @@
 name := "LIA"
 
-version := "0.20"
+version := "0.21"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.2"
 
-crossScalaVersions := Seq( "2.11.8" )
+crossScalaVersions := Seq( "2.11.11" )
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
 	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.3"
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.4"
 
 
 publishMavenStyle := true
@@ -38,11 +38,11 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
+licenses := Seq("ISC" -> url("http://opensource.org/licenses/ISC"))
 
 homepage := Some(url("https://github.com/edadma/lia"))
 
-pomExtra := (
+pomExtra :=
   <scm>
     <url>git@github.com:edadma/lia.git</url>
     <connection>scm:git:git@github.com:edadma/lia.git</connection>
@@ -53,4 +53,4 @@ pomExtra := (
       <name>Edward A. Maxedon, Sr.</name>
       <url>http://funl-lang.org</url>
     </developer>
-  </developers>)
+  </developers>
