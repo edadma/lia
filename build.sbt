@@ -1,8 +1,8 @@
 name := "LIA"
 
-version := "0.21"
+version := "0.21.1"
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 
 crossScalaVersions := Seq( "2.11.11" )
 
@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
 	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.4"
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.4.1"
 
 
 publishMavenStyle := true
