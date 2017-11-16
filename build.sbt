@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
 	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.4.1"
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.5"
 
 
 publishMavenStyle := true

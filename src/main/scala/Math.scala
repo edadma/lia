@@ -248,7 +248,7 @@ object Math extends LIA
 //			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
 //			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) == toComplexBigDecimal(b)) ) )
 
-	def sqrtFunction( n: Number ): Number =
+	def sqrtFunction( n: Any ): Number =
 		n match
 		{
 			case a: boxed.Integer =>
@@ -298,7 +298,7 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.sqrt
 		}
 
-	def absFunction( n: Number ): Number =
+	def absFunction( n: Any ): Number =
 		n match {
 			case a: boxed.Integer => maybePromote( abs(a.longValue) )
 			case a: BigInt => maybeDemote( a.abs )
@@ -311,11 +311,11 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.abs
 		}
 
-	def floorFunction( n: Number ): Number =
+	def floorFunction( n: Any ): Number =
 		n match {
 			case a: boxed.Integer => a
 			case a: BigInt => a
-			case a: xyz.hyperreal.numbers.Rational => a.abs
+			case a: xyz.hyperreal.numbers.Rational => a.floor
 			case a: boxed.Double =>
 				val f = BigDecimal( a ).setScale( 0, BigDecimal.RoundingMode.FLOOR )
 
@@ -325,14 +325,33 @@ object Math extends LIA
 					f.toBigInt
 			case a: BigDecimal => a.setScale( 0, BigDecimal.RoundingMode.FLOOR )
 			case a: ComplexBigInt => a
-			case a: ComplexRational => a.abs
-			case a: ComplexDouble => new boxed.Double( a.abs )
-			case a: ComplexBigDecimal => a.abs
+			case a: ComplexRational => a.floor
+			case a: ComplexDouble => a.floor
+			case a: ComplexBigDecimal => a.floor
 		}
 
-	def cosFunction( n: Number ): Number =
+	def ceilFunction( n: Any ): Number =
 		n match {
-			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => cos( n.doubleValue ).asInstanceOf[boxed.Double]
+			case a: boxed.Integer => a
+			case a: BigInt => a
+			case a: xyz.hyperreal.numbers.Rational => a.ceil
+			case a: boxed.Double =>
+				val f = BigDecimal( a ).setScale( 0, BigDecimal.RoundingMode.CEILING )
+
+				if (f.isValidInt)
+					f.toIntExact
+				else
+					f.toBigInt
+			case a: BigDecimal => a.setScale( 0, BigDecimal.RoundingMode.CEILING )
+			case a: ComplexBigInt => a
+			case a: ComplexRational => a.ceil
+			case a: ComplexDouble => a.ceil
+			case a: ComplexBigDecimal => a.ceil
+		}
+
+	def cosFunction( n: Any ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => cos( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => BigDecimalMath.cos( a )
 			case a: ComplexBigInt => a.cos
 			case a: ComplexRational => a.cos
@@ -340,9 +359,9 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.cos
 		}
 
-	def sinFunction( n: Number ): Number =
+	def sinFunction( n: Any ): Number =
 		n match {
-			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => sin( n.doubleValue ).asInstanceOf[boxed.Double]
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => sin( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => BigDecimalMath.sin( a )
 			case a: ComplexBigInt => a.sin
 			case a: ComplexRational => a.sin
@@ -350,9 +369,9 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.sin
 		}
 
-	def acosFunction( n: Number ): Number =
+	def acosFunction( n: Any ): Number =
 		n match {
-			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => acos( n.doubleValue ).asInstanceOf[boxed.Double]
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => acos( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => BigDecimalMath.acos( a )
 			case a: ComplexBigInt => a.acos
 			case a: ComplexRational => a.acos
@@ -360,9 +379,9 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.acos
 		}
 
-	def asinFunction( n: Number ): Number =
+	def asinFunction( n: Any ): Number =
 		n match {
-			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => asin( n.doubleValue ).asInstanceOf[boxed.Double]
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => asin( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
 			case a: BigDecimal => BigDecimalMath.asin( a )
 			case a: ComplexBigInt => a.asin
 			case a: ComplexRational => a.asin
@@ -370,9 +389,9 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.asin
 		}
 
-  def expFunction( n: Number ): Number =
+  def expFunction( n: Any ): Number =
     n match {
-      case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => exp( n.doubleValue ).asInstanceOf[boxed.Double]
+      case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => exp( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
       case a: BigDecimal => BigDecimalMath.exp( a )
 			case a: ComplexBigInt => a.exp
 			case a: ComplexRational => a.exp
