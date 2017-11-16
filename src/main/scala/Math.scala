@@ -248,7 +248,7 @@ object Math extends LIA
 //			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
 //			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) == toComplexBigDecimal(b)) ) )
 
-	def sqrtFunction( n: Any ): Number =
+	def sqrtFunction( n: Number ): Number =
 		n match
 		{
 			case a: boxed.Integer =>
@@ -298,7 +298,7 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.sqrt
 		}
 
-	def absFunction( n: Any ): Number =
+	def absFunction( n: Number ): Number =
 		n match {
 			case a: boxed.Integer => maybePromote( abs(a.longValue) )
 			case a: BigInt => maybeDemote( a.abs )
@@ -306,6 +306,25 @@ object Math extends LIA
 			case a: boxed.Double => new boxed.Double( abs(a) )
 			case a: BigDecimal => a.abs
 			case a: ComplexBigInt => a.abs
+			case a: ComplexRational => a.abs
+			case a: ComplexDouble => new boxed.Double( a.abs )
+			case a: ComplexBigDecimal => a.abs
+		}
+
+	def floorFunction( n: Number ): Number =
+		n match {
+			case a: boxed.Integer => a
+			case a: BigInt => a
+			case a: xyz.hyperreal.numbers.Rational => a.abs
+			case a: boxed.Double =>
+				val f = BigDecimal( a ).setScale( 0, BigDecimal.RoundingMode.FLOOR )
+
+				if (f.isValidInt)
+					f.toIntExact
+				else
+					f.toBigInt
+			case a: BigDecimal => a.setScale( 0, BigDecimal.RoundingMode.FLOOR )
+			case a: ComplexBigInt => a
 			case a: ComplexRational => a.abs
 			case a: ComplexDouble => new boxed.Double( a.abs )
 			case a: ComplexBigDecimal => a.abs

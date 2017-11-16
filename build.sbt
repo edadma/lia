@@ -1,8 +1,8 @@
 name := "LIA"
 
-version := "0.21.1"
+version := "0.22"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 crossScalaVersions := Seq( "2.11.11" )
 
