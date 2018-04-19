@@ -314,7 +314,7 @@ object Math extends LIA
 	def floorFunction( n: Any ): Number =
 		n match {
 			case a: boxed.Integer => a
-			case a: BigInt => a
+			case a: BigInt => maybeDemote( a )
 			case a: xyz.hyperreal.numbers.Rational => a.floor
 			case a: boxed.Double =>
 				val f = BigDecimal( a ).setScale( 0, BigDecimal.RoundingMode.FLOOR )
@@ -333,7 +333,7 @@ object Math extends LIA
 	def ceilFunction( n: Any ): Number =
 		n match {
 			case a: boxed.Integer => a
-			case a: BigInt => a
+			case a: BigInt => maybeDemote( a )
 			case a: xyz.hyperreal.numbers.Rational => a.ceil
 			case a: boxed.Double =>
 				val f = BigDecimal( a ).setScale( 0, BigDecimal.RoundingMode.CEILING )

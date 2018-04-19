@@ -1,14 +1,12 @@
 name := "LIA"
 
-version := "0.22"
+version := "0.22.1"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.5"
 
 crossScalaVersions := Seq( "2.11.11" )
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
-
-incOptions := incOptions.value.withNameHashing(true)
 
 organization := "xyz.hyperreal"
 
