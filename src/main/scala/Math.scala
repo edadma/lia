@@ -85,7 +85,9 @@ object Math extends LIA
 	operation( '%,
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue % b.longValue )),
-			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) % toBigInt(b) )) ) )
+			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) % toBigInt(b) )),
+			"Double" -> (((a: Number), (b: Number)) => a.doubleValue % b.doubleValue),
+			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) % toBigDecimal(b)) ) )
 	operation( 'mod,
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote(
