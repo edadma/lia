@@ -260,9 +260,9 @@ object Math extends LIA
 				val ir = round(dr).toInt
 
 					if (ir*ir == n)
-						if (a < 0) new ComplexBigInt( 0, ir ) else new boxed.Integer( ir )
+						if (a < 0) new ComplexBigInt( 0, ir ) else ir
 					else
-						if (a < 0) new ComplexDouble( 0, dr ) else new boxed.Double( dr )
+						if (a < 0) new ComplexDouble( 0, dr ) else dr
 				}
 			case a: BigInt =>
 				{
@@ -276,7 +276,7 @@ object Math extends LIA
 				{
 				val ar = a.abs
 
-					def rsqrt = if (a < 0) new ComplexDouble( 0, sqrt(ar.doubleValue) ) else new boxed.Double( sqrt(ar.doubleValue) )
+					def rsqrt = if (a < 0) new ComplexDouble( 0, sqrt(ar.doubleValue) ) else sqrt( ar.doubleValue ).asInstanceOf[Number]
 
 					bisqrt( ar.n ) match
 					{
@@ -292,7 +292,7 @@ object Math extends LIA
 						case _ => rsqrt
 					}
 				}
-			case a: boxed.Double => if (a < 0) new ComplexDouble( 0, sqrt(-a) ) else new boxed.Double( sqrt(a) )
+			case a: boxed.Double => if (a < 0) new ComplexDouble( 0, sqrt(-a) ) else sqrt( a )
 			case a: BigDecimal => if (a < 0) new ComplexBigDecimal( 0, BigDecimalMath.sqrt(-a) ) else BigDecimalMath.sqrt( a )
 			case a: ComplexBigInt => a.sqrt
 			case a: ComplexRational => a.sqrt
@@ -305,12 +305,25 @@ object Math extends LIA
 			case a: boxed.Integer => maybePromote( abs(a.longValue) )
 			case a: BigInt => maybeDemote( a.abs )
 			case a: xyz.hyperreal.numbers.Rational => a.abs
-			case a: boxed.Double => new boxed.Double( abs(a) )
+			case a: boxed.Double => abs (a )
 			case a: BigDecimal => a.abs
 			case a: ComplexBigInt => a.abs
 			case a: ComplexRational => a.abs
-			case a: ComplexDouble => new boxed.Double( a.abs )
+			case a: ComplexDouble => a.abs
 			case a: ComplexBigDecimal => a.abs
+		}
+
+	def lnFunction( n: Any ): Number =
+		n match {
+			case a: boxed.Integer => log( a.doubleValue )
+			case a: BigInt => log( a.doubleValue )
+			case a: xyz.hyperreal.numbers.Rational => log( a.doubleValue )
+			case a: boxed.Double => log( a )
+			case a: BigDecimal => BigDecimalMath.ln( a )
+			case a: ComplexBigInt => a.ln
+			case a: ComplexRational => a.ln
+			case a: ComplexDouble => a.ln
+			case a: ComplexBigDecimal => a.ln
 		}
 
 	def floorFunction( n: Any ): Number =
@@ -371,6 +384,16 @@ object Math extends LIA
 			case a: ComplexBigDecimal => a.sin
 		}
 
+	def tanFunction( n: Any ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => tan( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
+			case a: BigDecimal => BigDecimalMath.tan( a )
+			case a: ComplexBigInt => a.tan
+			case a: ComplexRational => a.tan
+			case a: ComplexDouble => a.tan
+			case a: ComplexBigDecimal => a.tan
+		}
+
 	def acosFunction( n: Any ): Number =
 		n match {
 			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => acos( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
@@ -389,6 +412,16 @@ object Math extends LIA
 			case a: ComplexRational => a.asin
 			case a: ComplexDouble => a.asin
 			case a: ComplexBigDecimal => a.asin
+		}
+
+	def atanFunction( n: Any ): Number =
+		n match {
+			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => atan( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
+			case a: BigDecimal => BigDecimalMath.atan( a )
+			case a: ComplexBigInt => a.atan
+			case a: ComplexRational => a.atan
+			case a: ComplexDouble => a.atan
+			case a: ComplexBigDecimal => a.atan
 		}
 
   def expFunction( n: Any ): Number =

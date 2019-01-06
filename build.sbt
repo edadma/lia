@@ -1,10 +1,8 @@
-name := "LIA"
+name := "lia"
 
-version := "0.22.2"
+version := "0.22.3"
 
-scalaVersion := "2.12.5"
-
-crossScalaVersions := Seq( "2.11.11" )
+scalaVersion := "2.12.8"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
