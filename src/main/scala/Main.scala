@@ -5,8 +5,7 @@ import math._
 
 object Main extends App
 {	
-	def time( action: => Unit )
-	{
+	def time( action: => Unit ) = {
 	val start = compat.Platform.currentTime
 	
 		action
@@ -27,7 +26,7 @@ object Main extends App
 // 	time( println( Math.ln(x) ) )
 // 	time( println( Math.ln(1.1), log(1.1) ) )
 
-	println( Math('+, 1, 3) )
+	println( Math(Symbol("+"), 1, 3) )
 }
 
 // 	def agm( x: Double, y: Double ) =

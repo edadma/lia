@@ -17,7 +17,7 @@ object Math extends LIA
 	special( ("xyz.hyperreal.numbers.Rational", "xyz.hyperreal.numbers.ComplexBigInt") -> "xyz.hyperreal.numbers.ComplexRational" )
 	special( ("Double", "xyz.hyperreal.numbers.ComplexRational") -> "xyz.hyperreal.numbers.ComplexDouble" )
 	special( ("BigDecimal", "xyz.hyperreal.numbers.ComplexRational") -> "xyz.hyperreal.numbers.ComplexBigDecimal" )
-	operation( '+,
+	operation( Symbol("+"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue + b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) + toBigInt(b) )),
@@ -29,7 +29,7 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) + toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) + toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) + toComplexBigDecimal(b)) ) )
-	operation( '-,
+	operation( Symbol("-"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue - b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) - toBigInt(b) )),
@@ -49,7 +49,7 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> ((a: ComplexRational) => -a),
 			"xyz.hyperreal.numbers.ComplexDouble" -> ((a: ComplexDouble) => -a),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> ((a: ComplexBigDecimal) => -a) ) )
-	operation( '*,
+	operation( Symbol("*"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue * b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) * toBigInt(b) )),
@@ -60,7 +60,7 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) * toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) * toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) * toComplexBigDecimal(b)) ) )
-	operation( '/,
+	operation( Symbol("/"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => (toRational(a) / toRational(b)).maybeDemote),
 			"BigInt" -> (((a: Number), (b: Number)) => (toRational(a) / toRational(b)).maybeDemote),
@@ -71,7 +71,7 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => maybeDemote( toComplexRational(a) / toComplexRational(b) )),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) / toComplexBigDecimal(b)) ) )
-	operation( '//,
+	operation( Symbol("//"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
 			"BigInt" -> (((a: Number), (b: Number)) => a.doubleValue / b.doubleValue),
@@ -82,13 +82,13 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) / toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) / toComplexBigDecimal(b)) ) )
-	operation( '%,
+	operation( Symbol("%"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue % b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) % toBigInt(b) )),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue % b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) % toBigDecimal(b)) ) )
-	operation( 'mod,
+	operation( Symbol("mod"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote(
 				{
@@ -108,15 +108,15 @@ object Math extends LIA
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => maybePromote( a.longValue / b.longValue )),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a) / toBigInt(b) )) ) )
-	operation( '|,
+	operation( Symbol("|"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue == 0),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) == 0) ) )
-	operation( '/|,
+	operation( Symbol("/|"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.longValue%a.longValue != 0),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(b)%toBigInt(a) != 0) ) )
-	operation( 'not,
+	operation( Symbol("not"),
 		unary(
 			"Integer" -> ((a: Number) => ~a.intValue),
 			"BigInt" -> ((a: Number) => ~toBigInt(a)) ) )

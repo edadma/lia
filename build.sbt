@@ -1,8 +1,8 @@
 name := "lia"
 
-version := "0.22.3"
+version := "0.23"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.0"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -11,11 +11,11 @@ organization := "xyz.hyperreal"
 resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
 libraryDependencies ++= Seq(
-	"org.scalatest" %% "scalatest" % "3.0.0" % "test",
-	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+	"org.scalatest" %% "scalatest" % "3.0.8" % "test",
+	"org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.5"
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.7"
 
 
 publishMavenStyle := true

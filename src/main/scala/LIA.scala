@@ -10,14 +10,13 @@ import xyz.hyperreal.numbers._
 import Util._
 
 
-class LIA( implicit var bdmath: BigDecimalMath ) extends ((Symbol, Any*) => AnyRef)
+class LIA( implicit var bdmath: BigDecimalMath ) extends ((Symbol, Seq[Any]) => AnyRef)
 {
 	protected val operations = new HashMap[Symbol, FunctionMap]
 	
 	protected val specials = new HashMap[(String, String), String]
 	
-	protected def special( s: ((String, String), String) )
-	{
+	protected def special( s: ((String, String), String) ) = {
 		specials(s._1) = s._2
 		specials((s._1._2, s._1._1)) = s._2
 	}
