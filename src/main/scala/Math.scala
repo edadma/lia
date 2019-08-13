@@ -120,15 +120,15 @@ object Math extends LIA
 		unary(
 			"Integer" -> ((a: Number) => ~a.intValue),
 			"BigInt" -> ((a: Number) => ~toBigInt(a)) ) )
-	operation( 'or,
+	operation( Symbol("or"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue|a.intValue),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a)|toBigInt(b)) ) )
-	operation( 'xor,
+	operation( Symbol("xor"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue^a.intValue),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a)^toBigInt(b) )) ) )
-	operation( 'and,
+	operation( Symbol("and"),
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => b.intValue&a.intValue),
 			"BigInt" -> (((a: Number), (b: Number)) => maybeDemote( toBigInt(a)&toBigInt(b) )) ) )
@@ -136,7 +136,7 @@ object Math extends LIA
 		binary(
 			"Integer" -> (((a: Number), (b: Number)) => (maybePromote( a.longValue / b.longValue ), maybePromote( a.longValue % b.longValue ))),
 			"BigInt" -> (((a: Number), (b: Number)) => (maybeDemote( toBigInt(a) / toBigInt(b) ), maybeDemote( toBigInt(a) % toBigInt(b) ))) ) )
-	operation( '^,
+	operation( Symbol("^"),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) =>
 				{
@@ -188,35 +188,35 @@ object Math extends LIA
 				} ),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) ^ toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) ^ toComplexBigDecimal(b)) ) )
-	operation( '>,
+	operation( Symbol(">"),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a > b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) > toBigInt(b)),
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) > toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue > b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) > toBigDecimal(b)) ) )
-	operation( '<,
+	operation( Symbol("<"),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a < b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) < toBigInt(b)),
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) < toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue < b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) < toBigDecimal(b)) ) )
-	operation( '>=,
+	operation( Symbol(">="),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a >= b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) >= toBigInt(b)),
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) >= toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue >= b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) >= toBigDecimal(b)) ) )
-	operation( '<=,
+	operation( Symbol("<="),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a <= b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) <= toBigInt(b)),
 			"xyz.hyperreal.numbers.Rational" -> (((a: Number), (b: Number)) => toRational(a) <= toRational(b)),
 			"Double" -> (((a: Number), (b: Number)) => a.doubleValue <= b.doubleValue),
 			"BigDecimal" -> (((a: Number), (b: Number)) => toBigDecimal(a) <= toBigDecimal(b)) ) )
-	operation( '==,
+	operation( Symbol("=="),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a == b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) == toBigInt(b)),
@@ -227,7 +227,7 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexRational(a) == toComplexRational(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) == toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) == toComplexBigDecimal(b)) ) )
-	operation( '!=,
+	operation( Symbol("!="),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a != b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) != toBigInt(b)),
@@ -238,7 +238,7 @@ object Math extends LIA
 			"xyz.hyperreal.numbers.ComplexRational" -> (((a: Number), (b: Number)) => toComplexRational(a) != toComplexRational(b)),
 			"xyz.hyperreal.numbers.ComplexDouble" -> (((a: Number), (b: Number)) => toComplexDouble(a) != toComplexDouble(b)),
 			"xyz.hyperreal.numbers.ComplexBigDecimal" -> (((a: Number), (b: Number)) => toComplexBigDecimal(a) != toComplexBigDecimal(b)) ) )
-	operation( 'compare,
+	operation( Symbol("compare"),
 		binary(
 			"Integer" -> (((a: boxed.Integer), (b: boxed.Integer)) => a compareTo b),
 			"BigInt" -> (((a: Number), (b: Number)) => toBigInt(a) compareTo toBigInt(b)),
@@ -387,7 +387,7 @@ object Math extends LIA
 	def tanFunction( n: Any ): Number =
 		n match {
 			case (_: boxed.Integer | _: BigInt | _: Rational | _: boxed.Double) => tan( n.asInstanceOf[Number].doubleValue ).asInstanceOf[boxed.Double]
-			case a: BigDecimal => BigDecimalMath.tan( a )
+//			case a: BigDecimal => BigDecimalMath.tan( a )
 			case a: ComplexBigInt => a.tan
 			case a: ComplexRational => a.tan
 			case a: ComplexDouble => a.tan

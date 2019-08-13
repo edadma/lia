@@ -10,7 +10,7 @@ import xyz.hyperreal.numbers._
 import Util._
 
 
-class LIA( implicit var bdmath: BigDecimalMath ) extends ((Symbol, Seq[Any]) => AnyRef)
+class LIA( implicit var bdmath: BigDecimalMath )
 {
 	protected val operations = new HashMap[Symbol, FunctionMap]
 	
