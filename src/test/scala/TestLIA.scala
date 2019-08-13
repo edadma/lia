@@ -44,43 +44,43 @@ class TestLIA extends FreeSpec with ScalaCheckPropertyChecks with Matchers with 
 //  		Math(3, 4).atanh.tanh shouldBe Math(3, 4)
 // 	}
 
-//	"Math operations" in
-//	{
-//		import Rational._
-//		import ComplexDouble._
-//
-//		Math( Symbol("+"), 1.5, 2 ) should (be (3.5) and be (a [jl.Double]))
-//		Math( Symbol("+"), BigDecimal(1.5), 2 ) should (be (3.5) and be (a [BigDecimal]))
-//		Math( Symbol("+"), BigInt(1), 2 ) should (be (3) and be (a [jl.Integer]))
-//		Math( Symbol("+"), BigInt(1), BigInt(2) ) should (be (3) and be (a [jl.Integer]))
-//		Math( Symbol("+"), BigInt(1), 2.5 ) shouldBe 3.5
-//		Math( '^, -1.0, .5 ) shouldBe 1.i
-//		Math( '^, 3, -4 ) shouldBe (1\81)
-//		Math( '^, BigInt(3), -4 ) shouldBe (1\81)
-//		Math( '^, 3, BigInt(-4) ) shouldBe (1\81)
-//		Math( '%, BigInt(12), 5 ) should (be (2) and be (a [jl.Integer]))
-//		Math( '%, 12, 5 ) should (be (2) and be (a [jl.Integer]))
-//		Math( '|, BigInt(5), 10 ) shouldBe true
-//		Math( '|, 5, 10 ) shouldBe true
-//		Math( '|, BigInt(5), 11 ) shouldBe false
-//		Math( '|, 5, 11 ) shouldBe false
-//		Math( '/|, BigInt(5), 10 ) shouldBe false
-//		Math( '/|, 5, 10 ) shouldBe false
-//		Math( '/|, BigInt(5), 11 ) shouldBe true
-//		Math( '/|, 5, 11 ) shouldBe true
-//	}
+	"Math operations" in
+	{
+		import Rational._
+		import ComplexDouble._
+
+		Math.apply( Symbol("+"), 1.5, 2 ) should (be (3.5) and be (a [jl.Double]))
+		Math.apply( Symbol("+"), BigDecimal(1.5), 2 ) should (be (3.5) and be (a [BigDecimal]))
+		Math.apply( Symbol("+"), BigInt(1), 2 ) should (be (3) and be (a [jl.Integer]))
+		Math.apply( Symbol("+"), BigInt(1), BigInt(2) ) should (be (3) and be (a [jl.Integer]))
+		Math.apply( Symbol("+"), BigInt(1), 2.5 ) shouldBe 3.5
+		Math.apply( Symbol("^"), -1.0, .5 ) shouldBe 1.i
+		Math.apply( Symbol("^"), 3, -4 ) shouldBe (1\81)
+		Math.apply( Symbol("^"), BigInt(3), -4 ) shouldBe (1\81)
+		Math.apply( Symbol("^"), 3, BigInt(-4) ) shouldBe (1\81)
+		Math.apply( Symbol("%"), BigInt(12), 5 ) should (be (2) and be (a [jl.Integer]))
+		Math.apply( Symbol("%"), 12, 5 ) should (be (2) and be (a [jl.Integer]))
+		Math.apply( Symbol("|"), BigInt(5), 10 ) shouldBe true
+		Math.apply( Symbol("|"), 5, 10 ) shouldBe true
+		Math.apply( Symbol("|"), BigInt(5), 11 ) shouldBe false
+		Math.apply( Symbol("|"), 5, 11 ) shouldBe false
+		Math.apply( Symbol("/|"), BigInt(5), 10 ) shouldBe false
+		Math.apply( Symbol("/|"), 5, 10 ) shouldBe false
+		Math.apply( Symbol("/|"), BigInt(5), 11 ) shouldBe true
+		Math.apply( Symbol("/|"), 5, 11 ) shouldBe true
+	}
 
 	"Math ComplexBigInt" in
 	{
-//		import Rational._
+		import Rational._
 		import ComplexBigInt._
 
 		Math.apply( Symbol("+"), i + 1, 2 ) shouldBe 3 + i
-//		Math.apply( Symbol("+"), 1 + i, BigInt(2) ) shouldBe 3 + i
-//		Math.apply( Symbol("+"), 1 + i, 1\2 ) shouldBe ComplexRational( 3\2, 1 )
-//		Math.apply( Symbol("+"), 1 + i, 1.2 ) shouldBe ComplexDouble( 2.2, 1 )
-//		Math.apply( Symbol("+"), 1 + i, ComplexDouble(2, 3) ) shouldBe ComplexDouble( 3, 4 )
-//		Math.sqrtFunction( -4 ) should (be (2*i) and be (a [ComplexBigInt]))
+		Math.apply( Symbol("+"), 1 + i, BigInt(2) ) shouldBe 3 + i
+		Math.apply( Symbol("+"), 1 + i, 1\2 ) shouldBe ComplexRational( 3\2, 1 )
+		Math.apply( Symbol("+"), 1 + i, 1.2 ) shouldBe ComplexDouble( 2.2, 1 )
+		Math.apply( Symbol("+"), 1 + i, ComplexDouble(2, 3) ) shouldBe ComplexDouble( 3, 4 )
+		Math.sqrtFunction( -4 ) should (be (2*i) and be (a [ComplexBigInt]))
 	}
 	
 //  "Math ComplexRational" in
