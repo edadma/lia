@@ -1,8 +1,8 @@
 name := "lia"
 
-version := "0.23"
+version := "0.23.1"
 
-scalaVersion := "2.13.0"
+scalaVersion := "2.13.1"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -15,20 +15,9 @@ libraryDependencies ++= Seq(
 	"org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
 )
 
-libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.7"
-
+libraryDependencies += "xyz.hyperreal" %% "numbers" % "0.7.1"
 
 publishMavenStyle := true
-
-//publishTo := Some( Resolver.sftp( "Hyperreal Repository", "hyperreal.ca", "/var/www/hyperreal.ca/maven2" ) )
-
-//{
-//  val nexus = "https://oss.sonatype.org/"
-//  if (isSnapshot.value)
-//    Some("snapshots" at nexus + "content/repositories/snapshots")
-//  else
-//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-//}
 
 publishArtifact in Test := false
 
